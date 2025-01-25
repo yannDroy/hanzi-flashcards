@@ -3,8 +3,10 @@
 body {
     margin: 2em;
 
-    color: #16191a;
-    background-color: #f1f7f8;
+    color: #161616;
+    background-color: #f1f1f1;
+
+    cursor: default;
 }
 
 * {

@@ -1,13 +1,133 @@
-/* Colors */
+/* Flashcards */
 
-.green-bg {
-    background-color: #1A472A;
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.red-bg {
-    background-color: #5F0B0E;
+.flashcards {
+    display: flex;
+    margin-top: 3rem;
+    justify-content: center;
+    width: 50%;
 }
 
-.blue-bg {
-    background-color: #001534;
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 3rem;
+    background-color: #fdfdfd;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Types */
+
+.hanzi {
+    display: flex;
+    justify-content: center;
+    height: 14.5rem;
+    font-size: 12rem;
+    text-shadow: 2px 2px 3px #808080;
+    font-family: 'SimSun', 'Hiragino Sans GB', 'Helvetica', 'Arial', 'sans-serif';
+}
+
+.pinyin {
+    display: flex;
+    justify-content: center;
+    color: #202020;
+    font-size: 2rem;
+    letter-spacing: .1rem;
+}
+
+.english {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    color: #404040;
+    font-size: 1.5rem;
+}
+
+.description {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+    color: #454545;
+    font-size: .9rem;
+}
+
+/* Buttons */
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin-top: 2rem;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 1.5rem;
+    letter-spacing: .04rem;
+    cursor: pointer;
+}
+button:first-child {
+    margin-right: 1rem;
+}
+button:last-child {
+    margin-left: 1rem;
+}
+button:disabled {
+    background-color: #e4e4e4;
+    color: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+    cursor: not-allowed;
+}
+
+@media (hover: hover) {
+    button:hover {
+        opacity: 0.8;
+        transition: opacity 0.25s;
+    }
+}
+
+.show {
+    background-color: #f8f8f8;
+    color: #101010;
+}
+
+.next {
+    background-color: #032835;
+    color: #fafafa;
+}
+
+/* Colors and global things */
+
+.tone-0 {
+    color: #868992;
+}
+.tone-1 {
+    color: #D51B21;
+}
+.tone-2 {
+    color: #F8B72F;
+}
+.tone-3 {
+    color: #17e283;
+}
+.tone-4 {
+    color: #15b7ec;
+}
+
+.hidden {
+    color: transparent;
 }

@@ -1,5 +1,38 @@
-<section class="flashcards">
-    <div>
-        Hello, world!
-    </div>
-</section>
+<div class="content">
+    <!-- Hanzi Card -->
+    <section class="flashcards">
+        <div class="card">
+            @let card = flashcards.cards[flashcards.index];
+
+            <span [class]="'hanzi' + (flashcards.isInfoShown() ? (' ' + card.toneClass()) : '')">
+                {{card.hanzi}}
+            </span>
+
+            <span [class]="'pinyin' + (flashcards.isInfoShown() ? '' : ' hidden')">
+                {{card.pinyin}}
+            </span>
+
+            <span [class]="'english' + (flashcards.isInfoShown() ? '' : ' hidden')">
+                {{card.english}}
+            </span>
+
+            <span [class]="'description' + (flashcards.isInfoShown() && card.hasDescription() ? '' : ' hidden')">
+                {{card.description ? card.description : 'No description'}}
+            </span>
+        </div>
+    </section>
+
+    <!-- Buttons -->
+    <section class="buttons">
+        <button class="show"
+                [disabled]="flashcards.isInfoShown()"
+                (click)="flashcards.showInformation()">
+            Display
+        </button>
+
+        <button class="next"
+                (click)="flashcards.nextCard()">
+            Next
+        </button>
+    </section>
+</div>

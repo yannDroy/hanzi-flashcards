@@ -4,7 +4,7 @@ body {
     margin: 2em;
 
     color: #161616;
-    background-color: #f1f1f1;
+    background-image: linear-gradient(to right, #ececec , #f4f4f4);
 
     cursor: default;
 }

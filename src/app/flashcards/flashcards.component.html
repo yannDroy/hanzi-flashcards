@@ -8,15 +8,15 @@
                 {{card.hanzi}}
             </span>
 
-            <span [class]="'pinyin' + (flashcards.isInfoShown() ? '' : ' hidden')">
+            <span [class]="'pinyin' + (flashcards.isInfoShown() ? ' visible' : ' hidden')">
                 {{card.pinyin}}
             </span>
 
-            <span [class]="'english' + (flashcards.isInfoShown() ? '' : ' hidden')">
+            <span [class]="'english' + (flashcards.isInfoShown() ? ' visible' : ' hidden')">
                 {{card.english}}
             </span>
 
-            <span [class]="'description' + (flashcards.isInfoShown() && card.hasDescription() ? '' : ' hidden')">
+            <span [class]="'description' + (flashcards.isInfoShown() && card.hasDescription() ? ' visible' : ' hidden')">
                 {{card.description ? card.description : 'No description'}}
             </span>
         </div>

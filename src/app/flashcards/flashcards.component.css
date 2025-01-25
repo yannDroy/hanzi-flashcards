@@ -109,22 +109,33 @@ button:disabled {
 
 .tone-0 {
     color: #868992;
+    transition: color .2s linear;
 }
 .tone-1 {
     color: #D51B21;
+    transition: color .2s linear;
 }
 .tone-2 {
     color: #F8B72F;
+    transition: color .2s linear;
 }
 .tone-3 {
     color: #17e283;
+    transition: color .2s linear;
 }
 .tone-4 {
     color: #15b7ec;
+    transition: color .2s linear;
 }
 
+.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .25s linear;
+}
 .hidden {
-    color: transparent;
+    visibility: hidden;
+    opacity: 0;
 }
 
 /* Smaller screens */

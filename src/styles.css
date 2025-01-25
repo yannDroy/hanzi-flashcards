@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
+
+body {
+    margin: 2em;
+
+    color: #16191a;
+    background-color: #f1f7f8;
+}
+
+* {
+    font-family: 'Tahoma', 'Arial', 'Helvetica', 'sans-serif';
+}

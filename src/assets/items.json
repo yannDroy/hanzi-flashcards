@@ -139,7 +139,7 @@
         ["侯", "hòu", "time", "时候 shíhòu (time)"],
         ["后", "hòu", "behind", "后边"],
         ["花", "huā", "flower", ""],
-        滑  huá  slip  滑雪 huáxuě (ski)
+        ["滑", "huá", "slip", "滑雪 huáxuě (ski)"],
         ["话", "huà", "word, talk", ""],
         ["坏", "huài", "bad, broken", ""],
         ["换", "huàn", "change", ""],
@@ -197,7 +197,7 @@
         ["蓝", "lán", "blue", "蓝色"],
         ["老", "lǎo", "old", ""],
         ["了", "le", "past particle", ""],
-        乐  lè  happy  快乐 kuàilè happiness
+        ["乐", "lè", "happy", "快乐 kuàilè happiness"],
         ["累", "lèi", "tired", ""],
         ["冷", "lěng", "cold", ""],
         ["离", "lí", "away from", "我家离公司很近"],

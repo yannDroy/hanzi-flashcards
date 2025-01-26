@@ -2,8 +2,7 @@
     <!-- Hanzi Card -->
     <section [class]="'card-container'">
         <div [class]="'card' + (flashcards.isReplacing() ? ' replace' : '')
-                             + (flashcards.isInfoShown() ? ' flip'    : '')
-                             + (flashcards.isSwiping()   ? ' swipe'   : '')">
+                             + (flashcards.isInfoShown() ? ' flip'    : '')">
             @let card = flashcards.cards[flashcards.index];
 
             <div class="card-front">
@@ -40,7 +39,7 @@
         </button>
 
         <button class="next"
-                (click)="flashcards.swipeCard()">
+                (click)="flashcards.nextCard()">
             Next
         </button>
     </section>

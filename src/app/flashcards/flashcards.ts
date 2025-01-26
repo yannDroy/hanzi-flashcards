@@ -6,8 +6,7 @@ enum Type {
 }
 
 /** Animation durations */
-const DURATION_FLIP_ANIMATION = 800;
-const DURATION_SWIPE_ANIMATION = 200;
+const DURATION_FLIP_ANIMATION = 600;
 const DURATION_REPLACE_ANIMATION = 200;
 
 /**
@@ -22,9 +21,6 @@ export class Flashcards {
 
   /** Boolean that indicates if Hanzi information is shown (Pinyin, translation, etc.) */
   infoIsShown:boolean = false;
-
-  /** Boolean that indicates if the card is being swiped (changing to next card) */
-  swipe:boolean = false;
 
   /** Boolean that indicates if the new card is replacing the old */
   replace:boolean = false;
@@ -58,9 +54,6 @@ export class Flashcards {
     console.debug("--- Flashcards constructor: list of shuffled cards:");
     console.debug(this.cards);
 
-    console.debug("--- Flashcards constructor: index: " + this.index);
-    console.debug("--- Flashcards constructor: infoIsShown: " + this.infoIsShown);
-
     console.debug("--- Flashcards constructor: END");
   }
 
@@ -70,14 +63,6 @@ export class Flashcards {
    */
   isInfoShown():boolean {
     return this.infoIsShown;
-  }
-
-  /**
-   * Returns true if the card is being swiped
-   * @returns boolean
-   */
-  isSwiping():boolean {
-    return this.swipe;
   }
 
   /**
@@ -93,35 +78,12 @@ export class Flashcards {
    * @returns boolean
    */
   isAnimationOngoing():boolean {
-    if (this.swipe || this.flip || this.replace) {
+    if (this.flip || this.replace) {
       console.debug("--- Check animation: animation ongoing");
       return true;
     }
 
     return false;
-  }
-
-  /**
-   * Start the swipe-up animation and switch to the next card
-   */
-  swipeCard():void {
-    // Return immediately if there already is an ongoing animation
-    if (this.isAnimationOngoing()) {
-      return;
-    }
-
-    this.swipe = true;
-    console.debug("--- Swipe card: start, swipe: " + this.swipe);
-
-    // Set a timer for the animation class
-    setTimeout(() => {
-      // Swipe is finished
-      this.swipe = false;
-      console.debug("--- Swipe card: stop, swipe: " + this.swipe);
-
-      // Display the next card after the card is swiped
-      this.nextCard();
-    }, DURATION_SWIPE_ANIMATION); // 200ms as in the .css animation
   }
 
   /**
@@ -147,7 +109,7 @@ export class Flashcards {
 
       this.infoIsShown = false;
       console.debug("--- Next card: infoIsShown: " + this.infoIsShown);
-    }, DURATION_REPLACE_ANIMATION); // 200ms as in the .css animation
+    }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
   }
 
   /**
@@ -171,7 +133,7 @@ export class Flashcards {
       // Flip is finished
       this.flip = false;
       console.debug("--- Show information: stop, flip: " + this.flip);
-    }, DURATION_FLIP_ANIMATION); // 800ms as in the .css animation
+    }, DURATION_FLIP_ANIMATION); // needs to match the duration in .css
   }
 
   /**

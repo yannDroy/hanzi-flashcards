@@ -1,8 +1,3 @@
-/** Enumeration of the Mandarin tones */
-enum Tone {
-  Neutral, First, Second, Third, Fourth
-}
-
 /** List of potential vowels for each Mandarin tone */
 const FIRST_TONE_VOWELS = ['ā', 'ē', 'ī', 'ū', 'ǖ', 'ō'];
 const SECOND_TONE_VOWELS = ['á', 'é', 'í', 'ú', 'ǘ', 'ó'];

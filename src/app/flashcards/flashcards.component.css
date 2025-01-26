@@ -13,7 +13,7 @@
     margin-top: 2rem;
     background-color: transparent;
     perspective: 1000px;
-    z-index: 1000;
+    z-index: 10;
 }
 
 .card {
@@ -33,14 +33,15 @@
     height: 100%;
     position: absolute;
     border-radius: 12px;
-    background-image: linear-gradient(180deg, #fcfcfc , #d9d9d9);
+    background-image: linear-gradient(180deg, #323232 , #191919);
+    color: #fefefe;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
 .card-back {
     transform: rotateY(-180deg);
-    background-image: linear-gradient(180deg, #f0fbff , #d5e3e7);
+    background-image: linear-gradient(180deg, #ededed , #e6e6e6);
 }
 
 .credit {
@@ -60,7 +61,7 @@
     height: 14.5rem;
     margin-top: 3rem;
     font-size: 12rem;
-    text-shadow: 2px 2px 3px #808080;
+    text-shadow: 2px 2px 3px #b8b8b8;
     font-family: 'SimSun', 'Hiragino Sans GB', 'Helvetica', 'Arial', 'sans-serif';
     text-align: center;
 }
@@ -69,6 +70,7 @@
     display: flex;
     justify-content: center;
     color: #202020;
+    text-shadow: 1px 1px 1px #606060;
     font-size: 2.75rem;
     letter-spacing: .1rem;
     text-align: center;
@@ -79,8 +81,8 @@
     justify-content: center;
     margin-top: 1rem;
     padding: 0 1.5rem 0 1.5rem;
-    color: #404040;
-    font-size: 1.2rem;
+    color: #353535;
+    font-size: 1.25rem;
     text-align: center;
 }
 
@@ -89,8 +91,8 @@
     justify-content: center;
     margin-top: 1.5rem;
     padding: 0 1.5rem 0 1.5rem;
-    color: #454545;
-    font-size: 1rem;
+    color: #404040;
+    font-size: 1.1rem;
     text-align: center;
 }
 
@@ -160,25 +162,16 @@ button:disabled {
 /* Animations */
 
 .flip {
-    animation: flip-and-zoom .8s forwards;
-}
-
-.swipe {
-    animation: swipe-up-left .2s forwards;
+    animation: flip-and-zoom .6s forwards;
 }
 
 .replace {
     animation: replace-from-right .2s forwards;
 }
 
-@keyframes swipe-up-left {
-    0% { transform: scale(1) translate(0, 0) rotate(0deg); opacity: 1; }
-    100% { transform: scale(1.16) translate(-30px, -40px) rotate(-5deg); opacity: 0; }
-}
-
 @keyframes replace-from-right {
-    0% { transform: scale(0.84) translate(50px, 70px) rotate(-5deg); opacity: 0; }
-    100% { transform: scale(1) translate(0, 0) rotate(0deg); opacity: 1; }
+    0% { transform: scale(1.2) translate(16rem, -3rem) rotate(2deg); }
+    100% { transform: scale(1) translate(0, 0) rotate(0deg); }
 }
 
 @keyframes flip-and-zoom {

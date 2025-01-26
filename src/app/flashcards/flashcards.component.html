@@ -20,7 +20,7 @@
                     {{card.pinyin}}
                 </span>
 
-                <span [class]="'english'">
+                <span [class]="'english' + (card.hasEnglish() ? '' : ' hidden')">
                     {{card.english}}
                 </span>
 

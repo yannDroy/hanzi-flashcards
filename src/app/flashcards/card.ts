@@ -51,6 +51,14 @@ export class Card {
   }
 
   /**
+   * Returns true if the card has an English description, false otherwise
+   * @returns boolean
+   */
+  hasEnglish():boolean {
+    return this.english.length > 0;
+  }
+
+  /**
    * Returns the css class for the tone
    * @returns string
    */
@@ -66,13 +74,5 @@ export class Card {
     } else {
       return 'tone-0';
     }
-  }
-
-  /**
-   * Pretty prints the description with HTML tags for colors, etc.
-   * @returns a pretty string of the description
-   */
-  descriptionToHtml(): string {
-    return "<span></span>";//this.description;
   }
 }

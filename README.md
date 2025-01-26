@@ -2,6 +2,10 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
 
+It is a simple one page Angular application to help you memorizing Chinese characters with flashcards.
+
+The Hanzi are in `src/assets/items.json`.
+
 ## Development server
 
 To start a local development server, run:

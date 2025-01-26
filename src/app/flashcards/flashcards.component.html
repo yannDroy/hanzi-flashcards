@@ -1,37 +1,46 @@
 <div class="content">
     <!-- Hanzi Card -->
-    <section class="flashcards">
-        <div class="card">
+    <section [class]="'card-container'">
+        <div [class]="'card' + (flashcards.isReplacing() ? ' replace' : '')
+                             + (flashcards.isInfoShown() ? ' flip'    : '')
+                             + (flashcards.isSwiping()   ? ' swipe'   : '')">
             @let card = flashcards.cards[flashcards.index];
 
-            <span [class]="'hanzi' + (flashcards.isInfoShown() ? (' ' + card.toneClass()) : '')">
-                {{card.hanzi}}
-            </span>
+            <div class="card-front">
+                <span class="hanzi">
+                    {{card.hanzi}}
+                </span>
+            </div>
+            <div class="card-back">
+                <span [class]="'hanzi ' + card.toneClass()">
+                    {{card.hanzi}}
+                </span>
 
-            <span [class]="'pinyin' + (flashcards.isInfoShown() ? ' visible' : ' hidden')">
-                {{card.pinyin}}
-            </span>
+                <span [class]="'pinyin'">
+                    {{card.pinyin}}
+                </span>
 
-            <span [class]="'english' + (flashcards.isInfoShown() ? ' visible' : ' hidden')">
-                {{card.english}}
-            </span>
+                <span [class]="'english'">
+                    {{card.english}}
+                </span>
 
-            <span [class]="'description' + (flashcards.isInfoShown() && card.hasDescription() ? ' visible' : ' hidden')">
-                {{card.description ? card.description : 'No description'}}
-            </span>
+                <span [class]="'description' + (card.hasDescription() ? '' : ' hidden')">
+                    {{card.description ? card.description : 'No description'}}
+                </span>
+            </div>
         </div>
     </section>
 
     <!-- Buttons -->
-    <section class="buttons">
+    <section class="buttons-container">
         <button class="show"
                 [disabled]="flashcards.isInfoShown()"
                 (click)="flashcards.showInformation()">
-            Display
+            Flip
         </button>
 
         <button class="next"
-                (click)="flashcards.nextCard()">
+                (click)="flashcards.swipeCard()">
             Next
         </button>
     </section>

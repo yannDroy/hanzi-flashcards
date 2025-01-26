@@ -5,6 +5,11 @@ enum Type {
   Hanzi, Pinyin, Engligh, Description, None
 }
 
+/** Animation durations */
+const DURATION_FLIP_ANIMATION = 800;
+const DURATION_SWIPE_ANIMATION = 200;
+const DURATION_REPLACE_ANIMATION = 200;
+
 /**
  * Class that represents the flashcards component with its features
  */
@@ -17,6 +22,15 @@ export class Flashcards {
 
   /** Boolean that indicates if Hanzi information is shown (Pinyin, translation, etc.) */
   infoIsShown:boolean = false;
+
+  /** Boolean that indicates if the card is being swiped (changing to next card) */
+  swipe:boolean = false;
+
+  /** Boolean that indicates if the new card is replacing the old */
+  replace:boolean = false;
+
+  /** Boolean that indicates if the card is being flipped (information being displayed) */
+  flip:boolean = false;
 
   /**
    * Constructor
@@ -51,31 +65,113 @@ export class Flashcards {
   }
 
   /**
-   * Increments the index
-   */
-  nextCard():void {
-    this.index = (this.index + 1) % this.cards.length;
-    this.infoIsShown = false;
-
-    console.debug("--- Next card: index: " + this.index);
-    console.debug("--- Next card: infoIsShown: " + this.infoIsShown);
-  }
-
-  /**
-   * Toggles the boolean that controls the display of the Hanzi information
-   */
-  showInformation():void {
-    this.infoIsShown = true;
-
-    console.debug("--- Show information: infoIsShown: " + this.infoIsShown);
-  }
-
-  /**
    * Returns true if the Hanzi information is shown, false otherwise
    * @returns boolean
    */
   isInfoShown():boolean {
     return this.infoIsShown;
+  }
+
+  /**
+   * Returns true if the card is being swiped
+   * @returns boolean
+   */
+  isSwiping():boolean {
+    return this.swipe;
+  }
+
+  /**
+   * Returns true if the new card is replacing the old one
+   * @returns boolean
+   */
+  isReplacing():boolean {
+    return this.replace;
+  }
+
+  /**
+   * Returns true if there is an animation ongoing
+   * @returns boolean
+   */
+  isAnimationOngoing():boolean {
+    if (this.swipe || this.flip || this.replace) {
+      console.debug("--- Check animation: animation ongoing");
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Start the swipe-up animation and switch to the next card
+   */
+  swipeCard():void {
+    // Return immediately if there already is an ongoing animation
+    if (this.isAnimationOngoing()) {
+      return;
+    }
+
+    this.swipe = true;
+    console.debug("--- Swipe card: start, swipe: " + this.swipe);
+
+    // Set a timer for the animation class
+    setTimeout(() => {
+      // Swipe is finished
+      this.swipe = false;
+      console.debug("--- Swipe card: stop, swipe: " + this.swipe);
+
+      // Display the next card after the card is swiped
+      this.nextCard();
+    }, DURATION_SWIPE_ANIMATION); // 200ms as in the .css animation
+  }
+
+  /**
+   * Start the replacement animation with the new card
+   */
+  nextCard():void {
+    // Return immediately if there already is an ongoing animation
+    if (this.isAnimationOngoing()) {
+      return;
+    }
+
+    this.index = (this.index + 1) % this.cards.length;
+    console.debug("--- Next card: index: " + this.index);
+
+    this.replace = true;
+    console.debug("--- Next card: replace: " + this.replace);
+
+    // Set a timer for the animation class
+    setTimeout(() => {
+      // Replacement is finished
+      this.replace = false;
+      console.debug("--- Next card: stop, replace: " + this.replace);
+
+      this.infoIsShown = false;
+      console.debug("--- Next card: infoIsShown: " + this.infoIsShown);
+    }, DURATION_REPLACE_ANIMATION); // 200ms as in the .css animation
+  }
+
+  /**
+   * Start the flip animation and display the card information
+   */
+  showInformation():void {
+    // Return immediately if there already is an ongoing animation
+    if (this.isAnimationOngoing()) {
+      return;
+    }
+
+    this.flip = true;
+    console.debug("--- Show information: start, flip: " + this.flip);
+
+    // Set the infoIsShown flag to true
+    this.infoIsShown = true;
+    console.debug("--- Show information: stop, infoIsShown: " + this.infoIsShown);
+
+    // Set a timer to reset the flip attribute
+    setTimeout(() => {
+      // Flip is finished
+      this.flip = false;
+      console.debug("--- Show information: stop, flip: " + this.flip);
+    }, DURATION_FLIP_ANIMATION); // 800ms as in the .css animation
   }
 
   /**

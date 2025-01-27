@@ -23,7 +23,8 @@
                     {{card.english}}
                 </span>
 
-                <span [class]="'description' + (card.hasDescription() ? '' : ' hidden')">
+                <span #description
+                      [class]="'description' + (card.hasDescription() ? '' : ' hidden')">
                     {{card.description ? card.description : 'No description'}}
                 </span>
             </div>
@@ -39,7 +40,7 @@
         </button>
 
         <button class="next"
-                (click)="flashcards.nextCard()">
+                (click)="flashcards.nextCard(); description.scrollTop = 0;">
             Next
         </button>
     </section>

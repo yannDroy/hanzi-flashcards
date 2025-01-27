@@ -6,6 +6,13 @@ It is a simple one page Angular application to help you memorizing Chinese chara
 
 The Hanzi are in `src/assets/items.json`.
 
+Useful regex for adding items in the `.json` file:
+
+```
+([^\s]+)  (.+)  (.+)  (.+) //search for 4 groups of characters
+["$1", "$2", "$3", "$4"], //rewrite with json syntax
+```
+
 ## Development server
 
 To start a local development server, run:

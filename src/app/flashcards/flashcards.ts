@@ -37,7 +37,7 @@ export class Flashcards {
 
     // Loop through each item in the .json file
     for (let i:number = 0; i < itemsFile.length; i++) {
-      console.debug("--- Flashcards constructor: processsing " + itemsFile[i]);
+      console.debug("------ Flashcards constructor: processsing " + itemsFile[i]);
 
       this.cards.push(
         new Card(
@@ -53,6 +53,8 @@ export class Flashcards {
     this.shuffleCards();
     console.debug("--- Flashcards constructor: list of shuffled cards:");
     console.debug(this.cards);
+
+    console.debug("--- Flashcards constructor: number of cards: " + this.cards.length);
 
     console.debug("--- Flashcards constructor: END");
   }

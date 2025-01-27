@@ -5,12 +5,16 @@ enum Type {
   Hanzi, Pinyin, Engligh, Description, None
 }
 
-/** Animation durations */
+/** Animation constants */
 const DURATION_FLIP_ANIMATION = 800;
 const DURATION_REPLACE_ANIMATION = 200;
 const DURATION_ENTER_TILT_ANIMATION = 100;
 const DURATION_LEAVE_TILT_ANIMATION = 200;
 const INTERVAL_MOUSE_OVER = 10;
+const REDUCE_TILT = 5500;
+
+/** default number of cards to use */
+const DEFAULT_NUMBER_OF_CARDS = 8;
 
 /**
  * Class that represents the flashcards component with its features
@@ -21,6 +25,9 @@ export class Flashcards {
 
   /** Index of the current flashcard */
   index:number = 0;
+
+  /** Number of cards to use */
+  numberOfCards = DEFAULT_NUMBER_OF_CARDS;
 
   /** Boolean that indicates if Hanzi information is shown (Pinyin, translation, etc.) */
   infoIsShown:boolean = false;
@@ -62,6 +69,8 @@ export class Flashcards {
     this.shuffleCards();
     console.debug("--- Flashcards constructor: list of shuffled cards:");
     console.debug(this.cards);
+
+    this.cards = this.cards.slice(0, this.numberOfCards);
 
     console.debug("--- Flashcards constructor: number of cards: " + this.cards.length);
 
@@ -219,7 +228,7 @@ export class Flashcards {
     let card = document.getElementById("card");
     if (card) {
       // Normalize the delta values to get the direction vector
-      const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY) / 5500;
+      const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY) / REDUCE_TILT;
       const normX = deltaX / length;
       const normY = deltaY / length;
 

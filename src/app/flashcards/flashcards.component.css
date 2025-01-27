@@ -9,7 +9,7 @@
 .card-container {
     display: flex;
     justify-content: center;
-    width: 50%;
+    width: 40%;
     margin-top: 2rem;
     background-color: transparent;
     perspective: 1000px;
@@ -121,7 +121,8 @@
 .buttons-container {
     display: flex;
     justify-content: center;
-    width: 50%;
+    width: 40%;
+    height: 4rem;
     margin-top: 2rem;
     gap: 2rem;
     z-index: 0;
@@ -160,6 +161,22 @@ button:active {
     }
 }
 
+/* Counter */
+
+.counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8%;
+    padding: 1rem;
+    border: 1px solid #656565;
+    border-radius: 12px;
+    background-image: linear-gradient(180deg, #fcfcfc , #ececec);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .19);
+    font-size: 1.5rem;
+    color: #303030;
+}
+
 /* Colors and global things */
 
 .tone-0 {
@@ -193,6 +210,10 @@ button:active {
     animation: replace-from-right .2s forwards;
 }
 
+.bump {
+    animation: bump-counter .2s forwards;
+}
+
 @keyframes replace-from-right {
     0% { transform: scale(1.2) translate(16rem, -3rem) rotate(2deg); }
     100% { transform: scale(1) translate(0, 0) rotate(0deg); }
@@ -224,6 +245,12 @@ button:active {
                      0 0 29px #f2f9ff8a,
                      0 0 34px #f2f9ff8a;
     }
+}
+
+@keyframes bump-counter {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
 }
 
 /* Smaller screens */

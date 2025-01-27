@@ -56,6 +56,10 @@
                 (click)="flashcards.nextCard()">
             Next
         </button>
+
+        <span [class]="'counter' + (flashcards.isReplacing() ? ' bump' : '')">
+            {{flashcards.index + 1}}/{{flashcards.numberOfCards}}
+        </span>
     </section>
 
     <span class="credit">Made by 卓彦</span>

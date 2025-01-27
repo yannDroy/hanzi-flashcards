@@ -58,7 +58,8 @@
             "ssl": true,
             "sslKey": "ssl/localhost.key",
             "sslCert": "ssl/localhost.crt",
-            "host": "0.0.0.0"
+            "host": "0.0.0.0",
+            "open": true
           },
           "configurations": {
             "production": {

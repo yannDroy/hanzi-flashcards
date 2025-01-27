@@ -9,7 +9,7 @@
 .card-container {
     display: flex;
     justify-content: center;
-    width: 40%;
+    width: 50%;
     margin-top: 2rem;
     background-color: transparent;
     perspective: 1000px;
@@ -66,7 +66,7 @@
     text-align: center;
 }
 .card-front .hanzi {
-    font-size: 15rem;
+    font-size: 16rem;
     color: #fafafa;
     animation: glowing-text 1.2s ease-in-out infinite alternate;
 }
@@ -174,6 +174,7 @@ button:active {
     background-image: linear-gradient(180deg, #fcfcfc , #ececec);
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .19);
     font-size: 1.5rem;
+    letter-spacing: .04rem;
     color: #303030;
 }
 
@@ -255,7 +256,7 @@ button:active {
 
 /* Smaller screens */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     .card-container {
         width: 100%;
         margin-top: 0;
@@ -266,11 +267,11 @@ button:active {
     }
 
     .card-front .hanzi {
-        font-size: 11rem;
+        font-size: 12rem;
     }
 
     .card-back .hanzi {
-        height: 10rem;
+        height: 11rem;
         margin-top: 3rem;
         font-size: 9rem;
     }
@@ -293,11 +294,15 @@ button:active {
     .buttons-container {
         width: 100%;
         margin-top: 1.5rem;
+        height: 3rem;
         gap: 1.5rem;
     }
     
     button {
-        width: 50%;
+        font-size: 1.2rem;
+    }
+
+    .counter {
         font-size: 1.2rem;
     }
 

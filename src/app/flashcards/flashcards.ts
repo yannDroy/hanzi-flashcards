@@ -44,12 +44,18 @@ export class Flashcards {
   /** Value to control the hovering times to each 10ms */
   lastMouseOver:number = -1;
 
+  /** Boolean to check for mobile users */
+  mobile:boolean = false;
+
   /**
    * Constructor
    * @param itemsFile content of src/assets/items.json
    */
   constructor(itemsFile: Array<Array<string>>) {
     console.debug("--- Flashcards constructor: BEGIN");
+
+    this.mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    console.debug("------ Flashcards constructor: mobile: " + this.mobile);
 
     // Loop through each item in the .json file
     for (let i:number = 0; i < itemsFile.length; i++) {
@@ -99,6 +105,13 @@ export class Flashcards {
    */
   isHovering():boolean {
     return this.mouseOverCard;
+  }
+
+  /**
+   * Returns true if the user is on mobile
+   */
+  isMobile():boolean {
+    return this.mobile;
   }
 
   /**
@@ -191,8 +204,8 @@ export class Flashcards {
    * Registers that the mouse has started hovering on the card
    */
   mouseEnter(event:MouseEvent):void {
-    // Only process if the card has not been flipped
-    if (this.isInfoShown()) {
+    // Only process if the card has not been flipped and on desktop
+    if (this.isInfoShown() || this.isMobile()) {
       return;
     }
 
@@ -208,9 +221,11 @@ export class Flashcards {
    * Handle the mouse movement over the card and tilt it
    */
   mouseOver(event:MouseEvent):void {
-    // Only process after 10ms or if the card has not been flipped
+    // Only process after 10ms or if the card has not been flipped or on desktop
     const now = Date.now();
-    if (this.isInfoShown() || (this.lastMouseOver > 0 && (now - this.lastMouseOver < INTERVAL_MOUSE_OVER))) {
+    if (this.isInfoShown() ||
+       (this.lastMouseOver > 0 && (now - this.lastMouseOver < INTERVAL_MOUSE_OVER)) ||
+        this.isMobile()) {
       return;
     }
     this.lastMouseOver = now;
@@ -249,8 +264,8 @@ export class Flashcards {
    * Registers that the mouse has stopped hovering on the card
    */
   mouseLeave():void {
-    // Only process if the card has not been flipped
-    if (this.isInfoShown()) {
+    // Only process if the card has not been flipped and on desktop
+    if (this.isInfoShown() || this.isMobile()) {
       return;
     }
 

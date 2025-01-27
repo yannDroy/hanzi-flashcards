@@ -75,10 +75,9 @@ export class Flashcards {
     this.shuffleCards();
     console.debug("--- Flashcards constructor: list of shuffled cards:");
     console.debug(this.cards);
+    console.debug("--- Flashcards constructor: total number of cards: " + this.cards.length);
 
     this.cards = this.cards.slice(0, this.numberOfCards);
-
-    console.debug("--- Flashcards constructor: number of cards: " + this.cards.length);
 
     console.debug("--- Flashcards constructor: END");
   }
@@ -224,8 +223,8 @@ export class Flashcards {
     // Only process after 10ms or if the card has not been flipped or on desktop
     const now = Date.now();
     if (this.isInfoShown() ||
-       (this.lastMouseOver > 0 && (now - this.lastMouseOver < INTERVAL_MOUSE_OVER)) ||
-        this.isMobile()) {
+        this.isMobile() ||
+       (this.lastMouseOver > 0 && (now - this.lastMouseOver < INTERVAL_MOUSE_OVER))) {
       return;
     }
     this.lastMouseOver = now;

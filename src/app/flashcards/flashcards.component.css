@@ -121,7 +121,7 @@
 .buttons-container {
     display: flex;
     justify-content: center;
-    width: 40%;
+    width: 50%;
     height: 4rem;
     margin-top: 2rem;
     gap: 2rem;
@@ -167,8 +167,7 @@ button:active {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 8%;
-    padding: 1rem;
+    width: 20%;
     border: 1px solid #656565;
     border-radius: 12px;
     background-image: linear-gradient(180deg, #fcfcfc , #ececec);
@@ -303,6 +302,7 @@ button:active {
     }
 
     .counter {
+        width: 24%;
         font-size: 1.2rem;
     }
 

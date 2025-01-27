@@ -92,6 +92,8 @@ export class Flashcards {
    * Start the replacement animation with the new card
    */
   nextCard():void {
+    console.debug("--- Next card: BEGIN");
+
     // Return immediately if there already is an ongoing animation
     if (this.isAnimationOngoing()) {
       return;
@@ -110,7 +112,8 @@ export class Flashcards {
     setTimeout(() => {
       // Replacement is finished
       this.replace = false;
-      console.debug("--- Next card: stop, replace: " + this.replace);
+      console.debug("--- Next card: timer stop, replace: " + this.replace);
+      console.debug("--- Next card: END");
     }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
 
     // Scroll to the top of the description just in case
@@ -121,23 +124,26 @@ export class Flashcards {
    * Start the flip animation and display the card information
    */
   showInformation():void {
+    console.debug("--- Show information: BEGIN");
+
     // Return immediately if there already is an ongoing animation
     if (this.isAnimationOngoing()) {
       return;
     }
 
     this.flip = true;
-    console.debug("--- Show information: start, flip: " + this.flip);
+    console.debug("--- Show information: flip: " + this.flip);
 
     // Set the infoIsShown flag to true
     this.infoIsShown = true;
-    console.debug("--- Show information: stop, infoIsShown: " + this.infoIsShown);
+    console.debug("--- Show information: infoIsShown: " + this.infoIsShown);
 
     // Set a timer to reset the flip attribute
     setTimeout(() => {
       // Flip is finished
       this.flip = false;
-      console.debug("--- Show information: stop, flip: " + this.flip);
+      console.debug("--- Show information: timer stop, flip: " + this.flip);
+      console.debug("--- Show information: END");
     }, DURATION_FLIP_ANIMATION); // needs to match the duration in .css
 
     // Scroll to the top of the description just in case

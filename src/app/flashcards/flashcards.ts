@@ -8,6 +8,9 @@ enum Type {
 /** Animation durations */
 const DURATION_FLIP_ANIMATION = 800;
 const DURATION_REPLACE_ANIMATION = 200;
+const DURATION_ENTER_TILT_ANIMATION = 100;
+const DURATION_LEAVE_TILT_ANIMATION = 200;
+const INTERVAL_MOUSE_OVER = 10;
 
 /**
  * Class that represents the flashcards component with its features
@@ -27,6 +30,12 @@ export class Flashcards {
 
   /** Boolean that indicates if the card is being flipped (information being displayed) */
   flip:boolean = false;
+
+  /** Boolean that indicates if the mouse is over the card */
+  mouseOverCard:boolean = false;
+
+  /** Value to control the hovering times to each 10ms */
+  lastMouseOver:number = -1;
 
   /**
    * Constructor
@@ -76,6 +85,14 @@ export class Flashcards {
   }
 
   /**
+   * Returns true if the mouse is hovering on the card
+   * @returns boolean
+   */
+  isHovering():boolean {
+    return this.mouseOverCard;
+  }
+
+  /**
    * Returns true if there is an animation ongoing
    * @returns boolean
    */
@@ -100,19 +117,19 @@ export class Flashcards {
     }
 
     this.infoIsShown = false;
-    console.debug("--- Next card: infoIsShown: " + this.infoIsShown);
+    console.debug("------ Next card: infoIsShown: " + this.infoIsShown);
 
     this.index = (this.index + 1) % this.cards.length;
-    console.debug("--- Next card: index: " + this.index);
+    console.debug("------ Next card: index: " + this.index);
 
     this.replace = true;
-    console.debug("--- Next card: replace: " + this.replace);
+    console.debug("------ Next card: replace: " + this.replace);
 
     // Set a timer for the animation class
     setTimeout(() => {
       // Replacement is finished
       this.replace = false;
-      console.debug("--- Next card: timer stop, replace: " + this.replace);
+      console.debug("------ Next card: timer stop, replace: " + this.replace);
       console.debug("--- Next card: END");
     }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
 
@@ -132,22 +149,22 @@ export class Flashcards {
     }
 
     this.flip = true;
-    console.debug("--- Show information: flip: " + this.flip);
+    console.debug("------ Show information: flip: " + this.flip);
 
     // Set the infoIsShown flag to true
     this.infoIsShown = true;
-    console.debug("--- Show information: infoIsShown: " + this.infoIsShown);
+    console.debug("------ Show information: infoIsShown: " + this.infoIsShown);
 
     // Set a timer to reset the flip attribute
     setTimeout(() => {
       // Flip is finished
       this.flip = false;
-      console.debug("--- Show information: timer stop, flip: " + this.flip);
+      console.debug("------ Show information: timer stop, flip: " + this.flip);
       console.debug("--- Show information: END");
     }, DURATION_FLIP_ANIMATION); // needs to match the duration in .css
 
     // Scroll to the top of the description just in case
-    document.getElementById('description')?.scrollTo(0, 0);
+    document.getElementById("description")?.scrollTo(0, 0);
   }
 
   /**
@@ -162,6 +179,90 @@ export class Flashcards {
   }
 
   /**
+   * Registers that the mouse has started hovering on the card
+   */
+  mouseEnter(event:MouseEvent):void {
+    // Only process if the card has not been flipped
+    if (this.isInfoShown()) {
+      return;
+    }
+
+    console.debug("--- Mouse enter: BEGIN");
+
+    // Manually trigger the first tilt to have a transition
+    this.mouseOver(event);
+
+    this.mouseOverCard = true;
+  }
+
+  /**
+   * Handle the mouse movement over the card and tilt it
+   */
+  mouseOver(event:MouseEvent):void {
+    // Only process after 10ms or if the card has not been flipped
+    const now = Date.now();
+    if (this.isInfoShown() || (this.lastMouseOver > 0 && (now - this.lastMouseOver < INTERVAL_MOUSE_OVER))) {
+      return;
+    }
+    this.lastMouseOver = now;
+
+    // Mouse coordinates
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    // Center of the screen coordinates
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    // Delta
+    const deltaX = mouseX - centerX;
+    const deltaY = mouseY - centerY;
+
+    let card = document.getElementById("card");
+    if (card) {
+      // Normalize the delta values to get the direction vector
+      const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY) / 5500;
+      const normX = deltaX / length;
+      const normY = deltaY / length;
+
+      // Apply the 3D rotation to the card
+      card.style.transform = `rotate3d(${-normY}, ${normX}, 0, ${length}rad)`;
+
+      // If the mouse just entered, set the transition time
+      if (!this.isHovering()) {
+        card.style.transition = "transform .1s";
+        setTimeout(() => {
+          card.style.transition = "";
+        }, DURATION_ENTER_TILT_ANIMATION); // needs to match the duration above
+      }
+    }
+  }
+
+  /**
+   * Registers that the mouse has stopped hovering on the card
+   */
+  mouseLeave():void {
+    // Only process if the card has not been flipped
+    if (this.isInfoShown()) {
+      return;
+    }
+
+    console.debug("--- Mouse leave: BEGIN");
+    
+    this.mouseOverCard = false;
+
+    let card = document.getElementById("card");
+    if (card) {
+      // Reset the card's flat position with a quick transition
+      card.style.transform = "rotate3d(0, 0, 0, 0rad)";
+      card.style.transition = "transform .2s";
+      // Clean completely the styles after the transition is done
+      setTimeout(() => {
+        card.style.transform = "";
+        card.style.transition = "";
+      }, DURATION_LEAVE_TILT_ANIMATION); // needs to match the duration above
+    }
+  }
+
+  /**
    * Shuffles the array of cards
    * @param cards the array to shuffle
    * @returns a new array of the shuffled array
@@ -171,7 +272,7 @@ export class Flashcards {
     let length = this.cards.length;
 
     while (length) {
-      let i:number = Math.floor(Math.random() * length--);
+      const i:number = Math.floor(Math.random() * length--);
       shuffledArray.push(this.cards.splice(i, 1)[0]);
     }
 

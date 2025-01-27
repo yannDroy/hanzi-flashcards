@@ -1,32 +1,42 @@
 <div class="content">
     <!-- Hanzi Card -->
-    <section [class]="'card-container'">
-        <div [class]="'card' + (flashcards.isReplacing() ? ' replace' : '')
+    <section [class]="'card-container'"
+             (mouseenter)="flashcards.mouseEnter($event)"
+             (mouseleave)="flashcards.mouseLeave()"
+             (mousemove)="flashcards.mouseOver($event)">
+
+        <div id="card"
+             [class]="'card' + (flashcards.isReplacing() ? ' replace' : '')
                              + (flashcards.isInfoShown() ? ' flip'    : '')"
              (click)="flashcards.tapOnCard()">
-            @let card = flashcards.cards[flashcards.index];
+
+             @let cardObject = flashcards.cards[flashcards.index];
 
             <div class="card-front">
-                <span class="hanzi">
-                    {{card.hanzi}}
+                <span id="hanzi-front"
+                      class="hanzi">
+                    {{cardObject.hanzi}}
                 </span>
             </div>
             <div class="card-back">
-                <span [class]="'hanzi ' + card.toneClass()">
-                    {{card.hanzi}}
+                <span id="hanzi-back"
+                      [class]="'hanzi ' + cardObject.toneClass()">
+                    {{cardObject.hanzi}}
                 </span>
 
-                <span [class]="'pinyin'">
-                    {{card.pinyin}}
+                <span id="pinyin"
+                      [class]="'pinyin'">
+                    {{cardObject.pinyin}}
                 </span>
 
-                <span [class]="'english' + (card.hasEnglish() ? '' : ' hidden')">
-                    {{card.english}}
+                <span id="english"
+                      [class]="'english' + (cardObject.hasEnglish() ? '' : ' hidden')">
+                    {{cardObject.english}}
                 </span>
 
-                <span #description
-                      [class]="'description' + (card.hasDescription() ? '' : ' hidden')">
-                    {{card.description ? card.description : 'No description'}}
+                <span id="description"
+                      [class]="'description' + (cardObject.hasDescription() ? '' : ' hidden')">
+                    {{cardObject.description ? cardObject.description : 'No description'}}
                 </span>
             </div>
         </div>
@@ -34,13 +44,15 @@
 
     <!-- Buttons -->
     <section class="buttons-container">
-        <button class="show"
+        <button id="show"
+                class="show"
                 [disabled]="flashcards.isInfoShown()"
                 (click)="flashcards.showInformation()">
             Flip
         </button>
 
-        <button class="next"
+        <button id="next"
+                class="next"
                 (click)="flashcards.nextCard()">
             Next
         </button>

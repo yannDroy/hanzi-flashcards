@@ -97,6 +97,9 @@ export class Flashcards {
       return;
     }
 
+    this.infoIsShown = false;
+    console.debug("--- Next card: infoIsShown: " + this.infoIsShown);
+
     this.index = (this.index + 1) % this.cards.length;
     console.debug("--- Next card: index: " + this.index);
 
@@ -108,10 +111,10 @@ export class Flashcards {
       // Replacement is finished
       this.replace = false;
       console.debug("--- Next card: stop, replace: " + this.replace);
-
-      this.infoIsShown = false;
-      console.debug("--- Next card: infoIsShown: " + this.infoIsShown);
     }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
+
+    // Scroll to the top of the description just in case
+    document.getElementById('description')?.scrollTo(0, 0);
   }
 
   /**
@@ -136,6 +139,20 @@ export class Flashcards {
       this.flip = false;
       console.debug("--- Show information: stop, flip: " + this.flip);
     }, DURATION_FLIP_ANIMATION); // needs to match the duration in .css
+
+    // Scroll to the top of the description just in case
+    document.getElementById('description')?.scrollTo(0, 0);
+  }
+
+  /**
+   * Handle tap on card by the user (either next card or flip depending on its state)
+   */
+  tapOnCard():void {
+    if (this.isInfoShown()) {
+      this.nextCard();
+    } else {
+      this.showInformation();
+    }
   }
 
   /**

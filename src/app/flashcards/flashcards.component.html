@@ -2,7 +2,8 @@
     <!-- Hanzi Card -->
     <section [class]="'card-container'">
         <div [class]="'card' + (flashcards.isReplacing() ? ' replace' : '')
-                             + (flashcards.isInfoShown() ? ' flip'    : '')">
+                             + (flashcards.isInfoShown() ? ' flip'    : '')"
+             (click)="flashcards.tapOnCard()">
             @let card = flashcards.cards[flashcards.index];
 
             <div class="card-front">
@@ -40,7 +41,7 @@
         </button>
 
         <button class="next"
-                (click)="flashcards.nextCard(); description.scrollTop = 0;">
+                (click)="flashcards.nextCard()">
             Next
         </button>
     </section>

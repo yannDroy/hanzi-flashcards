@@ -6,7 +6,7 @@ body {
     background-image: linear-gradient(to right, #ebebeb , #f5f5f5);
     cursor: default;
     user-select: none;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 * {

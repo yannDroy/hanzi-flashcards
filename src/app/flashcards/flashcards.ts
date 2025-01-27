@@ -11,10 +11,10 @@ const DURATION_REPLACE_ANIMATION = 200;
 const DURATION_ENTER_TILT_ANIMATION = 100;
 const DURATION_LEAVE_TILT_ANIMATION = 200;
 const INTERVAL_MOUSE_OVER = 10;
-const REDUCE_TILT = 5500;
+const REDUCE_TILT = 2500;
 
 /** default number of cards to use */
-const DEFAULT_NUMBER_OF_CARDS = 8;
+const DEFAULT_NUMBER_OF_CARDS = 5;
 
 /**
  * Class that represents the flashcards component with its features

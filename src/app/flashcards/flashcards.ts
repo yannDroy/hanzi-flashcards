@@ -6,7 +6,7 @@ enum Type {
 }
 
 /** Animation durations */
-const DURATION_FLIP_ANIMATION = 600;
+const DURATION_FLIP_ANIMATION = 800;
 const DURATION_REPLACE_ANIMATION = 200;
 
 /**

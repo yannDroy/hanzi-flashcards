@@ -63,6 +63,7 @@
 }
 .card-back .hanzi {
     height: 14.5rem;
+    align-items: center;
     margin-top: 3rem;
     font-size: 12rem;
     text-shadow: 3px 3px 6px #686868;

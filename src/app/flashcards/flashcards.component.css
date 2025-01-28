@@ -203,22 +203,22 @@ button:active {
 }
 
 .set-1 {
-    background-image: linear-gradient(180deg, hsl(180, 26%, 13%), hsl(185, 26%, 9%));
+    background-image: linear-gradient(180deg, hsl(180, 26%, 14%), hsl(185, 26%, 9%));
 }
 .set-2 {
-    background-image: linear-gradient(180deg, hsl(349, 73%, 13%), hsl(347, 77%, 9%));
+    background-image: linear-gradient(180deg, hsl(349, 73%, 14%), hsl(347, 77%, 10%));
 }
 .set-3 {
-    background-image: linear-gradient(180deg, hsl(225, 63%, 13%), hsl(237, 63%, 9%));
+    background-image: linear-gradient(180deg, hsl(225, 63%, 15%), hsl(237, 63%, 9%));
 }
 .set-4 {
-    background-image: linear-gradient(180deg, hsl(300, 51%, 13%), hsl(300, 51%, 9%));
+    background-image: linear-gradient(180deg, hsl(300, 51%, 14%), hsl(300, 51%, 9%));
 }
 .set-5 {
-    background-image: linear-gradient(180deg, hsl(30, 3%, 13%),   hsl(30, 3%, 9%));
+    background-image: linear-gradient(180deg, hsl(30, 3%, 15%),   hsl(30, 3%, 8%));
 }
 .set-6 {
-    background-image: linear-gradient(180deg, hsl(24, 35%, 13%),  hsl(23, 37%, 9%));
+    background-image: linear-gradient(180deg, hsl(24, 35%, 15%),  hsl(23, 37%, 10%));
 }
 
 /* Animations */

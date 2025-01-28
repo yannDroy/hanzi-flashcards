@@ -115,14 +115,6 @@ export class Flashcards {
   }
 
   /**
-   * Returns true if the mouse is hovering on the card
-   * @returns boolean
-   */
-  isHovering():boolean {
-    return this.mouseOverCard;
-  }
-
-  /**
    * Returns true if the user is on mobile
    */
   isMobile():boolean {
@@ -210,9 +202,11 @@ export class Flashcards {
   /**
    * Handle tap on card by the user (either next card or flip depending on its state)
    */
-  tapOnCard():void {
+  tapOnCard(event:MouseEvent):void {
     if (this.isInfoShown()) {
       this.nextCard();
+      // Manually enter the card as the mouse is on it
+      this.mouseEnter(event);
     } else {
       this.showInformation();
     }
@@ -269,7 +263,7 @@ export class Flashcards {
       card.style.transform = `rotate3d(${-normY}, ${normX}, 0, ${length}rad)`;
 
       // If the mouse just entered, set the transition time
-      if (!this.isHovering()) {
+      if (!this.mouseOverCard) {
         card.style.transition = "transform .1s";
         setTimeout(() => {
           card.style.transition = "";

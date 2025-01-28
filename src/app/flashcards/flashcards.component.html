@@ -8,7 +8,7 @@
         <div id="card"
              [class]="'card' + (flashcards.isReplacing() ? ' replace' : '')
                              + (flashcards.isInfoShown() ? ' flip'    : '')"
-             (click)="flashcards.tapOnCard()">
+             (click)="flashcards.tapOnCard($event)">
 
              @let cardObject = flashcards.cards[flashcards.index];
 

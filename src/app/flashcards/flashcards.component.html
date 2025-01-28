@@ -46,6 +46,7 @@
     <section class="buttons-container">
         <button id="new"
                 class="new"
+                [disabled]="!flashcards.canClickNewSet()"
                 (click)="flashcards.init()">
             New set
         </button>

@@ -36,7 +36,7 @@ export class Flashcards {
   colorSet:number = -1;
 
   /** Number of cards to use */
-  numberOfCards = DEFAULT_NUMBER_OF_CARDS;
+  numberOfCards:number = DEFAULT_NUMBER_OF_CARDS;
 
   /** Boolean that indicates if Hanzi information is shown (Pinyin, translation, etc.) */
   infoIsShown:boolean = false;
@@ -77,7 +77,9 @@ export class Flashcards {
     }
     console.debug("--- Flashcards constructor: total number of cards: " + this.cards.length);
 
-    // Shuffle the cards
+    // Shuffle the cards (well)
+    this.shuffleCards();
+    this.shuffleCards();
     this.shuffleCards();
 
     // Init the current set
@@ -334,6 +336,13 @@ export class Flashcards {
         card.style.transition = "";
       }, DURATION_LEAVE_TILT_ANIMATION); // needs to match the duration above
     }
+  }
+
+  /**
+   * Checks if the user can get a new set (only possible on the last card)
+   */
+  canClickNewSet():boolean {
+    return ((this.index + 1) % this.numberOfCards) == 0;
   }
 
   /**

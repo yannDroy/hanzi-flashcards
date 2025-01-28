@@ -11,7 +11,7 @@ const DURATION_REPLACE_ANIMATION = 200;
 const DURATION_ENTER_TILT_ANIMATION = 100;
 const DURATION_LEAVE_TILT_ANIMATION = 200;
 const INTERVAL_MOUSE_OVER = 10;
-const REDUCE_TILT = 2500;
+const REDUCE_TILT = 3200;
 
 /** Default number of cards to use */
 const DEFAULT_NUMBER_OF_CARDS = 5;
@@ -20,7 +20,7 @@ const DEFAULT_NUMBER_OF_CARDS = 5;
 const NUMBER_OF_COLOR_SETS = 6;
 
 /**
- * Class that represents the flashcards component with its features
+ * Class that represents the flashcards application with its features
  */
 export class Flashcards {
   /** List of all the cards */
@@ -33,10 +33,13 @@ export class Flashcards {
   firstIndex:number = -1;
 
   /** Index of the back color set */
-  colorSet:number = -1;
+  backColor:number = -1;
 
   /** Number of cards to use */
   numberOfCards:number = DEFAULT_NUMBER_OF_CARDS;
+
+  /** Boolean that indicates if the current set of cards has been viewed */
+  finished:boolean = false;
 
   /** Boolean that indicates if Hanzi information is shown (Pinyin, translation, etc.) */
   infoIsShown:boolean = false;
@@ -61,6 +64,7 @@ export class Flashcards {
    * @param itemsFile content of src/assets/items.json
    */
   constructor(itemsFile: Array<Array<string>>) {
+    // Get the user's navigator
     this.mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     console.debug("--- Flashcards constructor: mobile: " + this.mobile);
 
@@ -77,12 +81,12 @@ export class Flashcards {
     }
     console.debug("--- Flashcards constructor: total number of cards: " + this.cards.length);
 
-    // Shuffle the cards (well)
+    // Shuffle the cards (very well)
     this.shuffleCards();
     this.shuffleCards();
     this.shuffleCards();
 
-    // Init the current set
+    // Init the current set of cards
     this.init();
   }
 
@@ -98,73 +102,22 @@ export class Flashcards {
     // Select the first N cards
     this.index = this.firstIndex > -1 ? ((this.firstIndex + this.numberOfCards) % this.cards.length) : 0;
     this.firstIndex = this.index;
-    this.colorSet = (this.colorSet + 1) % NUMBER_OF_COLOR_SETS;
-    console.debug("--- Init: colorSet: " + this.colorSet);
-    console.debug("--- Init: firstIndex: " + this.firstIndex);
-    console.debug("--- Init: index: " + this.index);
-
+    this.backColor = (this.backColor + 1) % NUMBER_OF_COLOR_SETS;
+    this.finished = false;
     this.infoIsShown = false;
-    console.debug("--- Init: infoIsShown: " + this.infoIsShown);
-
     this.replace = true;
-    console.debug("--- Init: replace: " + this.replace);
+
+    console.debug("--- Init: index: " + this.index);
+    console.debug("--- Init: backColor: " + this.backColor);
 
     // Set a timer for the animation class
     setTimeout(() => {
       // Replacement is finished
       this.replace = false;
-      console.debug("--- Init: infoIsShown: timer stop, replace: " + this.replace);
     }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
 
     // Scroll to the top of the description just in case
     document.getElementById('description')?.scrollTo(0, 0);
-  }
-
-  /**
-   * Returns the current index to display
-   * @returns number
-   */
-  getIndex():number {
-    return this.index % this.numberOfCards;
-  }
-
-  /**
-   * Returns the number of cards
-   * @returns number
-   */
-  getNumberOfCards():number {
-    return this.numberOfCards;
-  }
-
-  /**
-   * Returns the current back color set number
-   * @returns number
-   */
-  getColorSet():number {
-    return this.colorSet;
-  }
-
-  /**
-   * Returns true if the Hanzi information is shown, false otherwise
-   * @returns boolean
-   */
-  isInfoShown():boolean {
-    return this.infoIsShown;
-  }
-
-  /**
-   * Returns true if the new card is replacing the old one
-   * @returns boolean
-   */
-  isReplacing():boolean {
-    return this.replace;
-  }
-
-  /**
-   * Returns true if the user is on mobile
-   */
-  isMobile():boolean {
-    return this.mobile;
   }
 
   /**
@@ -173,7 +126,7 @@ export class Flashcards {
    */
   isAnimationOngoing():boolean {
     if (this.flip || this.replace) {
-      console.debug("--- Check animation: animation ongoing");
+      console.debug("--- isAnimationOngoing: animation ongoing");
       return true;
     }
 
@@ -190,19 +143,16 @@ export class Flashcards {
     }
 
     this.infoIsShown = false;
-    console.debug("--- Next card: infoIsShown: " + this.infoIsShown);
-
     this.index = ((this.index + 1) % this.numberOfCards) + this.firstIndex;
-    console.debug("--- Next card: index: " + this.index);
-
     this.replace = true;
-    console.debug("--- Next card: replace: " + this.replace);
+    this.finished = this.finished || ((this.index + 1) % this.numberOfCards == 0);
+
+    console.debug("--- Next card: index: " + this.index);
 
     // Set a timer for the animation class
     setTimeout(() => {
       // Replacement is finished
       this.replace = false;
-      console.debug("--- Next card: timer stop, replace: " + this.replace);
     }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
 
     // Scroll to the top of the description just in case
@@ -222,17 +172,12 @@ export class Flashcards {
     this.mouseLeave();
 
     this.flip = true;
-    console.debug("--- Show information: flip: " + this.flip);
-
-    // Set the infoIsShown flag to true
     this.infoIsShown = true;
-    console.debug("--- Show information: infoIsShown: " + this.infoIsShown);
 
     // Set a timer to reset the flip attribute
     setTimeout(() => {
       // Flip is finished
       this.flip = false;
-      console.debug("--- Show information: timer stop, flip: " + this.flip);
     }, DURATION_FLIP_ANIMATION); // needs to match the duration in .css
 
     // Scroll to the top of the description just in case
@@ -260,8 +205,6 @@ export class Flashcards {
     if (this.isInfoShown() || this.isMobile()) {
       return;
     }
-
-    console.debug("--- Mouse enter: BEGIN");
 
     // Manually trigger the first tilt to have a transition
     this.mouseOver(event);
@@ -321,8 +264,6 @@ export class Flashcards {
       return;
     }
 
-    console.debug("--- Mouse leave: BEGIN");
-    
     this.mouseOverCard = false;
 
     let card = document.getElementById("card");
@@ -336,13 +277,6 @@ export class Flashcards {
         card.style.transition = "";
       }, DURATION_LEAVE_TILT_ANIMATION); // needs to match the duration above
     }
-  }
-
-  /**
-   * Checks if the user can get a new set (only possible on the last card)
-   */
-  canClickNewSet():boolean {
-    return ((this.index + 1) % this.numberOfCards) == 0;
   }
 
   /**
@@ -360,5 +294,59 @@ export class Flashcards {
     }
 
     this.cards = shuffledArray;
+  }
+
+  /**
+   * Returns the current index to display
+   * @returns number
+   */
+  getIndex():number {
+    return this.index % this.numberOfCards;
+  }
+
+  /**
+   * Returns the number of cards
+   * @returns number
+   */
+  getNumberOfCards():number {
+    return this.numberOfCards;
+  }
+
+  /**
+   * Returns the current back color set number
+   * @returns number
+   */
+  getBackColor():number {
+    return this.backColor;
+  }
+
+  /**
+   * Returns true if the Hanzi information is shown, false otherwise
+   * @returns boolean
+   */
+  isInfoShown():boolean {
+    return this.infoIsShown;
+  }
+
+  /**
+   * Returns true if the new card is replacing the old one
+   * @returns boolean
+   */
+  isReplacing():boolean {
+    return this.replace;
+  }
+
+  /**
+   * Returns true if the user is on mobile
+   */
+  isMobile():boolean {
+    return this.mobile;
+  }
+
+  /**
+   * Returns true if the user can have a new set of cards
+   */
+  isFinished():boolean {
+    return this.finished;
   }
 }

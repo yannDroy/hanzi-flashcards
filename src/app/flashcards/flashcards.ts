@@ -83,6 +83,22 @@ export class Flashcards {
   }
 
   /**
+   * Returns the current index
+   * @returns number
+   */
+  getIndex():number {
+    return this.index;
+  }
+
+  /**
+   * Returns the number of cards
+   * @returns number
+   */
+  getNumberOfCards():number {
+    return this.numberOfCards;
+  }
+
+  /**
    * Returns true if the Hanzi information is shown, false otherwise
    * @returns boolean
    */
@@ -168,6 +184,9 @@ export class Flashcards {
     if (this.isAnimationOngoing()) {
       return;
     }
+
+    // Reset the card's position before setting infoIsShown to true
+    this.mouseLeave();
 
     this.flip = true;
     console.debug("------ Show information: flip: " + this.flip);

@@ -58,7 +58,7 @@
         </button>
 
         <span [class]="'counter' + (flashcards.isReplacing() ? ' bump' : '')">
-            {{flashcards.index + 1}}/{{flashcards.numberOfCards}}
+            {{flashcards.getIndex() + 1}}/{{flashcards.getNumberOfCards()}}
         </span>
     </section>
 

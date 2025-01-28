@@ -12,7 +12,7 @@
 
              @let cardObject = flashcards.cards[flashcards.index];
 
-            <div class="card-front">
+            <div [class]="'card-front' + ' set-' + (flashcards.getColorSet() + 1)">
                 <span id="hanzi-front"
                       class="hanzi">
                     {{cardObject.hanzi}}
@@ -44,17 +44,16 @@
 
     <!-- Buttons -->
     <section class="buttons-container">
-        <button id="show"
-                class="show"
-                [disabled]="flashcards.isInfoShown()"
-                (click)="flashcards.showInformation()">
-            Flip
+        <button id="new"
+                class="new"
+                (click)="flashcards.init()">
+            New set
         </button>
 
         <button id="next"
                 class="next"
                 (click)="flashcards.nextCard()">
-            Next
+            Next card
         </button>
 
         <span [class]="'counter' + (flashcards.isReplacing() ? ' bump' : '')">

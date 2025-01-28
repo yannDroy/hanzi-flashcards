@@ -36,25 +36,16 @@
     height: 100%;
     position: absolute;
     border-radius: 12px;
-    background-image: linear-gradient(180deg, #343434 , #161616);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
+
 .card-front {
     justify-content: center;
 }
 .card-back {
     transform: rotateY(-180deg);
     background-image: linear-gradient(180deg, #ededed , #e4e4e4);
-}
-
-.credit {
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin-top: 1.5rem;
-    color: #9a9a9a;
-    font-size: .9rem;
 }
 
 /* Card information */
@@ -177,6 +168,17 @@ button:active {
     color: #303030;
 }
 
+/* Credit */
+
+.credit {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin-top: 1.5rem;
+    color: #9a9a9a;
+    font-size: .9rem;
+}
+
 /* Colors and global things */
 
 .tone-0 {
@@ -198,6 +200,25 @@ button:active {
 .hidden {
     visibility: hidden;
     opacity: 0;
+}
+
+.set-1 {
+    background-image: linear-gradient(180deg, hsl(180, 26%, 13%), hsl(185, 26%, 9%));
+}
+.set-2 {
+    background-image: linear-gradient(180deg, hsl(349, 73%, 13%), hsl(347, 77%, 9%));
+}
+.set-3 {
+    background-image: linear-gradient(180deg, hsl(225, 63%, 13%), hsl(237, 63%, 9%));
+}
+.set-4 {
+    background-image: linear-gradient(180deg, hsl(300, 51%, 13%), hsl(300, 51%, 9%));
+}
+.set-5 {
+    background-image: linear-gradient(180deg, hsl(30, 3%, 13%),   hsl(30, 3%, 9%));
+}
+.set-6 {
+    background-image: linear-gradient(180deg, hsl(24, 35%, 13%),  hsl(23, 37%, 9%));
 }
 
 /* Animations */
@@ -249,7 +270,7 @@ button:active {
 
 @keyframes bump-counter {
     0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
+    50% { transform: scale(1.025); }
     100% { transform: scale(1); }
 }
 
@@ -298,12 +319,12 @@ button:active {
     }
     
     button {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .counter {
         width: 24%;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .credit {

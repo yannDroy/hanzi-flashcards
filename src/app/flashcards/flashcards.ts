@@ -13,8 +13,11 @@ const DURATION_LEAVE_TILT_ANIMATION = 200;
 const INTERVAL_MOUSE_OVER = 10;
 const REDUCE_TILT = 2500;
 
-/** default number of cards to use */
+/** Default number of cards to use */
 const DEFAULT_NUMBER_OF_CARDS = 5;
+
+/** Number of color sets */
+const NUMBER_OF_COLOR_SETS = 6;
 
 /**
  * Class that represents the flashcards component with its features
@@ -23,8 +26,14 @@ export class Flashcards {
   /** List of all the cards */
   cards:Array<Card> = [];
 
-  /** Index of the current flashcard */
-  index:number = 0;
+  /** Index of the current flashcard being displayed */
+  index:number = -1;
+
+  /** Index of the first flashcard of the current set */
+  firstIndex:number = -1;
+
+  /** Index of the back color set */
+  colorSet:number = -1;
 
   /** Number of cards to use */
   numberOfCards = DEFAULT_NUMBER_OF_CARDS;
@@ -52,15 +61,11 @@ export class Flashcards {
    * @param itemsFile content of src/assets/items.json
    */
   constructor(itemsFile: Array<Array<string>>) {
-    console.debug("--- Flashcards constructor: BEGIN");
-
     this.mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    console.debug("------ Flashcards constructor: mobile: " + this.mobile);
+    console.debug("--- Flashcards constructor: mobile: " + this.mobile);
 
     // Loop through each item in the .json file
     for (let i:number = 0; i < itemsFile.length; i++) {
-      console.debug("------ Flashcards constructor: processsing " + itemsFile[i]);
-
       this.cards.push(
         new Card(
           itemsFile[i][Type.Hanzi],
@@ -70,24 +75,55 @@ export class Flashcards {
         )
       );
     }
+    console.debug("--- Flashcards constructor: total number of cards: " + this.cards.length);
 
     // Shuffle the cards
     this.shuffleCards();
-    console.debug("--- Flashcards constructor: list of shuffled cards:");
-    console.debug(this.cards);
-    console.debug("--- Flashcards constructor: total number of cards: " + this.cards.length);
 
-    this.cards = this.cards.slice(0, this.numberOfCards);
-
-    console.debug("--- Flashcards constructor: END");
+    // Init the current set
+    this.init();
   }
 
   /**
-   * Returns the current index
+   * Init the current set
+   */
+  init():void {
+    // Return immediately if there is an ongoing animation
+    if (this.isAnimationOngoing()) {
+      return;
+    }
+
+    // Select the first N cards
+    this.index = this.firstIndex > -1 ? ((this.firstIndex + this.numberOfCards) % this.cards.length) : 0;
+    this.firstIndex = this.index;
+    this.colorSet = (this.colorSet + 1) % NUMBER_OF_COLOR_SETS;
+    console.debug("--- Init: colorSet: " + this.colorSet);
+    console.debug("--- Init: firstIndex: " + this.firstIndex);
+    console.debug("--- Init: index: " + this.index);
+
+    this.infoIsShown = false;
+    console.debug("--- Init: infoIsShown: " + this.infoIsShown);
+
+    this.replace = true;
+    console.debug("--- Init: replace: " + this.replace);
+
+    // Set a timer for the animation class
+    setTimeout(() => {
+      // Replacement is finished
+      this.replace = false;
+      console.debug("--- Init: infoIsShown: timer stop, replace: " + this.replace);
+    }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
+
+    // Scroll to the top of the description just in case
+    document.getElementById('description')?.scrollTo(0, 0);
+  }
+
+  /**
+   * Returns the current index to display
    * @returns number
    */
   getIndex():number {
-    return this.index;
+    return this.index % this.numberOfCards;
   }
 
   /**
@@ -96,6 +132,14 @@ export class Flashcards {
    */
   getNumberOfCards():number {
     return this.numberOfCards;
+  }
+
+  /**
+   * Returns the current back color set number
+   * @returns number
+   */
+  getColorSet():number {
+    return this.colorSet;
   }
 
   /**
@@ -138,28 +182,25 @@ export class Flashcards {
    * Start the replacement animation with the new card
    */
   nextCard():void {
-    console.debug("--- Next card: BEGIN");
-
     // Return immediately if there already is an ongoing animation
     if (this.isAnimationOngoing()) {
       return;
     }
 
     this.infoIsShown = false;
-    console.debug("------ Next card: infoIsShown: " + this.infoIsShown);
+    console.debug("--- Next card: infoIsShown: " + this.infoIsShown);
 
-    this.index = (this.index + 1) % this.cards.length;
-    console.debug("------ Next card: index: " + this.index);
+    this.index = ((this.index + 1) % this.numberOfCards) + this.firstIndex;
+    console.debug("--- Next card: index: " + this.index);
 
     this.replace = true;
-    console.debug("------ Next card: replace: " + this.replace);
+    console.debug("--- Next card: replace: " + this.replace);
 
     // Set a timer for the animation class
     setTimeout(() => {
       // Replacement is finished
       this.replace = false;
-      console.debug("------ Next card: timer stop, replace: " + this.replace);
-      console.debug("--- Next card: END");
+      console.debug("--- Next card: timer stop, replace: " + this.replace);
     }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
 
     // Scroll to the top of the description just in case
@@ -170,8 +211,6 @@ export class Flashcards {
    * Start the flip animation and display the card information
    */
   showInformation():void {
-    console.debug("--- Show information: BEGIN");
-
     // Return immediately if there already is an ongoing animation
     if (this.isAnimationOngoing()) {
       return;
@@ -181,18 +220,17 @@ export class Flashcards {
     this.mouseLeave();
 
     this.flip = true;
-    console.debug("------ Show information: flip: " + this.flip);
+    console.debug("--- Show information: flip: " + this.flip);
 
     // Set the infoIsShown flag to true
     this.infoIsShown = true;
-    console.debug("------ Show information: infoIsShown: " + this.infoIsShown);
+    console.debug("--- Show information: infoIsShown: " + this.infoIsShown);
 
     // Set a timer to reset the flip attribute
     setTimeout(() => {
       // Flip is finished
       this.flip = false;
-      console.debug("------ Show information: timer stop, flip: " + this.flip);
-      console.debug("--- Show information: END");
+      console.debug("--- Show information: timer stop, flip: " + this.flip);
     }, DURATION_FLIP_ANIMATION); // needs to match the duration in .css
 
     // Scroll to the top of the description just in case

@@ -12,7 +12,7 @@
 
              @let cardObject = flashcards.cards[flashcards.index];
 
-            <div [class]="'card-front' + ' set-' + (flashcards.getBackColor() + 1)">
+            <div [class]="'card-front' + ' set-' + flashcards.getBackColor()">
                 <span id="hanzi-front"
                       class="hanzi">
                     {{cardObject.hanzi}}

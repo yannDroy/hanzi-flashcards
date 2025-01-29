@@ -59,7 +59,7 @@
 .card-front .hanzi {
     font-size: 16rem;
     color: #fafafa;
-    animation: glowing-text 1.2s ease-in-out infinite alternate;
+    animation: glowing-text-white 1.2s ease-in-out infinite alternate;
 }
 .card-back .hanzi {
     height: 14.5rem;
@@ -180,7 +180,12 @@ button:active {
     font-size: .9rem;
 }
 
-/* Colors and global things */
+/* Colors */
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
 
 .tone-0 {
     color: #444444;
@@ -198,28 +203,44 @@ button:active {
     color: #0a67b3;
 }
 
-.hidden {
-    visibility: hidden;
-    opacity: 0;
-}
-
-.set-1 {
+.set-0 {
     background-image: linear-gradient(180deg, hsl(180, 26%, 14%), hsl(185, 26%, 9%));
 }
-.set-2 {
+.set-1 {
     background-image: linear-gradient(180deg, hsl(349, 73%, 14%), hsl(347, 77%, 10%));
 }
-.set-3 {
+.set-2 {
     background-image: linear-gradient(180deg, hsl(225, 63%, 15%), hsl(237, 63%, 9%));
+}
+.set-3 {
+    background-image: linear-gradient(180deg, hsl(24, 35%, 15%),  hsl(23, 37%, 10%));
 }
 .set-4 {
     background-image: linear-gradient(180deg, hsl(300, 51%, 14%), hsl(300, 51%, 9%));
 }
+
 .set-5 {
-    background-image: linear-gradient(180deg, hsl(30, 3%, 15%),   hsl(30, 3%, 8%));
+    background-image: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, .1) 50%, transparent 100%),
+                      radial-gradient(hsl(340, 100%, 69%) 0%, hsl(268, 72%, 69%) 45%, hsl(172, 98%, 69%) 130%);
+    background-repeat: no-repeat, no-repeat;
+    background-position: 0 -32rem, 0 0;
+    animation: shine 1.4s ease-in-out infinite;
 }
-.set-6 {
-    background-image: linear-gradient(180deg, hsl(24, 35%, 15%),  hsl(23, 37%, 10%));
+.set-5 .hanzi {
+    color: #ffcc24;
+    animation: glowing-text-gold 2s ease-in-out infinite alternate;
+}
+.set-5 + .card-back {
+    background-image: radial-gradient(hsl(298, 57%, 92%) 0%, hsl(263, 73%, 90%) 45%, hsl(172, 98%, 89%) 130%);
+}
+.set-5 + .card-back .pinyin {
+    color: #043d86;
+}
+.set-5 + .card-back .english {
+    color: #01214b;
+}
+.set-5 + .card-back .description {
+    color: #01214b;
 }
 
 /* Animations */
@@ -233,12 +254,12 @@ button:active {
 }
 
 .bump {
-    animation: bump-counter .2s forwards;
+    animation: bump-counter .2s ease-in-out forwards;
 }
 
 @keyframes replace-from-right {
-    0% { transform: scale(1.2) translate(16rem, -3rem) rotate(2deg); }
-    100% { transform: scale(1) translate(0, 0) rotate(0deg); }
+    from { transform: scale(1.2) translate(16rem, -3rem) rotate(2deg); }
+    to { transform: scale(1) translate(0, 0) rotate(0deg); }
 }
 
 @keyframes flip-and-zoom {
@@ -248,7 +269,7 @@ button:active {
     100% { transform: scale(1) rotateY(-180deg); }
 }
 
-@keyframes glowing-text {
+@keyframes glowing-text-white {
     from {
         text-shadow: 0 0 2px #ffffff7a,
                      0 0 6px #ffffff7a,
@@ -269,10 +290,36 @@ button:active {
     }
 }
 
+@keyframes glowing-text-gold {
+    from {
+        text-shadow: 0 0 2px #eeb1116a,
+                     0 0 6px #eeb1116a,
+                     0 0 10px #ffc3006a,
+                     0 0 14px #ffc3006a,
+                     0 0 19px #ffc3006a,
+                     0 0 24px #ffc3006a,
+                     0 0 29px #ffc3006a;
+    }
+    to {
+        text-shadow: 0 0 7px #ffc3007a,
+                     0 0 10px #ffd7007a,
+                     0 0 16px #ffd7007a,
+                     0 0 20px #ffd7007a,
+                     0 0 25px #ffd7007a,
+                     0 0 29px #ffd7007a,
+                     0 0 34px #ffd7007a;
+    }
+}
+
 @keyframes bump-counter {
     0% { transform: scale(1); }
     50% { transform: scale(1.025); }
     100% { transform: scale(1); }
+}
+
+@keyframes shine {
+    from { background-position: 0 -32rem, 0 0; }
+    to { background-position: 0 34rem, 0 0; }
 }
 
 /* Smaller screens */

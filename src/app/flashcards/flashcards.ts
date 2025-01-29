@@ -102,7 +102,7 @@ export class Flashcards {
     // Select the first N cards
     this.index = this.firstIndex > -1 ? ((this.firstIndex + this.numberOfCards) % this.cards.length) : 0;
     this.firstIndex = this.index;
-    this.backColor = (this.backColor + 1) % NUMBER_OF_COLOR_SETS;
+    this.backColor = (this.backColor == NUMBER_OF_COLOR_SETS - 1) ? this.backColor : ((this.backColor + 1) % NUMBER_OF_COLOR_SETS);
     this.finished = false;
     this.infoIsShown = false;
     this.replace = true;

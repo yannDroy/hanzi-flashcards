@@ -7,6 +7,7 @@ enum Type {
 
 /** Animation constants */
 const DURATION_FLIP_ANIMATION = 800;
+const DURATION_FLIP_SOUND = 80;
 const DURATION_REPLACE_ANIMATION = 200;
 const DURATION_ENTER_TILT_ANIMATION = 100;
 const DURATION_LEAVE_TILT_ANIMATION = 200;
@@ -59,6 +60,12 @@ export class Flashcards {
   /** Boolean to check for mobile users */
   mobile:boolean = false;
 
+  /** Swoosh sound (next card) */
+  swooshSound = new Audio();
+
+  /** Flip sound (flip card) */
+  flipSound = new Audio();
+
   /**
    * Constructor
    * @param itemsFile content of src/assets/items.json
@@ -67,6 +74,12 @@ export class Flashcards {
     // Get the user's navigator
     this.mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     console.debug("--- Flashcards constructor: mobile: " + this.mobile);
+
+    // Load the sounds
+    this.swooshSound.src = "../../assets/sounds/swoosh.mp3";
+    this.flipSound.src = "../../assets/sounds/flip.mp3";
+    this.swooshSound.load();
+    this.flipSound.load();
 
     // Loop through each item in the .json file
     for (let i:number = 0; i < itemsFile.length; i++) {
@@ -82,7 +95,6 @@ export class Flashcards {
     console.debug("--- Flashcards constructor: total number of cards: " + this.cards.length);
 
     // Shuffle the cards (very well)
-    this.shuffleCards();
     this.shuffleCards();
     this.shuffleCards();
 
@@ -109,6 +121,9 @@ export class Flashcards {
 
     console.debug("--- Init: index: " + this.index);
     console.debug("--- Init: backColor: " + this.backColor);
+
+    // Play swoosh sound
+    this.swooshSound.play();
 
     // Set a timer for the animation class
     setTimeout(() => {
@@ -149,6 +164,9 @@ export class Flashcards {
 
     console.debug("--- Next card: index: " + this.index);
 
+    // Play swoosh sound
+    this.swooshSound.play();
+
     // Set a timer for the animation class
     setTimeout(() => {
       // Replacement is finished
@@ -173,6 +191,11 @@ export class Flashcards {
 
     this.flip = true;
     this.infoIsShown = true;
+
+    // Set a timer for the flip sound
+    setTimeout(() => {
+      this.flipSound.play();
+    }, DURATION_FLIP_SOUND); // needs to match the duration in .css
 
     // Set a timer to reset the flip attribute
     setTimeout(() => {

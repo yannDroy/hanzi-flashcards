@@ -1,42 +1,42 @@
 <div class="content">
-    <!-- Hanzi Card -->
+    <!-- Card -->
     <section [class]="'card-container'"
-             (mouseenter)="flashcards.mouseEnter($event)"
-             (mouseleave)="flashcards.mouseLeave()"
-             (mousemove)="flashcards.mouseOver($event)">
+             (mouseenter)="animations.mouseEnter($event, animations.flip)"
+             (mouseleave)="animations.mouseLeave(animations.flip)"
+             (mousemove)="animations.mouseOver($event, animations.flip)">
 
         <div id="card"
-             [class]="'card' + (flashcards.isReplacing() ? ' replace' : '')
-                             + (flashcards.isInfoShown() ? ' flip'    : '')"
-             (click)="flashcards.tapOnCard($event)">
+             [class]="'card' + (animations.replace ? ' replace' : '')
+                             + (flipped ? ' flip'    : '')"
+             (click)="tapOnCard($event)">
 
-             @let cardObject = flashcards.cards[flashcards.index];
+             @let card = cards[sets[setIndex][cardIndex]];
 
-            <div [class]="'card-front' + ' set-' + flashcards.getBackColor()">
+            <div [class]="'card-front' + ' set-' + setIndex">
                 <span id="hanzi-front"
                       class="hanzi">
-                    {{cardObject.hanzi}}
+                    {{card.hanzi}}
                 </span>
             </div>
             <div class="card-back">
                 <span id="hanzi-back"
-                      [class]="'hanzi ' + cardObject.toneClass()">
-                    {{cardObject.hanzi}}
+                      [class]="'hanzi ' + card.toneClass()">
+                    {{card.hanzi}}
                 </span>
 
                 <span id="pinyin"
                       [class]="'pinyin'">
-                    {{cardObject.pinyin}}
+                    {{card.pinyin}}
                 </span>
 
                 <span id="english"
-                      [class]="'english' + (cardObject.hasEnglish() ? '' : ' hidden')">
-                    {{cardObject.english}}
+                      [class]="'english' + (card.hasEnglish() ? '' : ' hidden')">
+                    {{card.english}}
                 </span>
 
                 <span id="description"
-                      [class]="'description' + (cardObject.hasDescription() ? '' : ' hidden')">
-                    {{cardObject.description ? cardObject.description : 'No description'}}
+                      [class]="'description' + (card.hasDescription() ? '' : ' hidden')">
+                    {{card.description ? card.description : 'No description'}}
                 </span>
             </div>
         </div>
@@ -46,21 +46,24 @@
     <section class="buttons-container">
         <button id="new"
                 class="new"
-                [disabled]="!flashcards.isFinished()"
-                (click)="flashcards.init()">
-            {{flashcards.newSetButtonText()}}
+                [disabled]="!finishedSet"
+                (click)="init(false)">
+            {{newSetButtonText()}}
         </button>
 
         <button id="next"
                 class="next"
-                (click)="flashcards.nextCard()">
-                {{flashcards.nextCardButtonText()}}
+                (click)="nextCard()">
+            {{nextCardButtonText()}}
         </button>
 
-        <span [class]="'counter' + (flashcards.isReplacing() ? ' bump' : '')">
-            {{flashcards.getIndex() + 1}}/{{flashcards.getNumberOfCards()}}
+        <span [class]="'counter' + (animations.replace ? ' bump' : '')">
+            {{cardIndex + 1}}/{{getNumberOfCards()}}
         </span>
     </section>
 
-    <span class="credit">Made by 卓彦</span>
+    <!-- Credits -->
+    <span class="credit">Learn Mandarin characters with 6 new card sets every day.</span>
+    <span class="credit">Tap the card to reveal the information.</span>
+    <span class="credit">{{getDate()}} - Made by 卓彦</span>
 </div>

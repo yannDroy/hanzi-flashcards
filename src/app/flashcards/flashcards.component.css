@@ -130,7 +130,7 @@ button {
     border-radius: 12px;
     background-image: linear-gradient(180deg, #042f3f , #021922);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     letter-spacing: .04rem;
     cursor: pointer;
     color: #fafafa;
@@ -174,10 +174,16 @@ button:active {
 .credit {
     display: flex;
     justify-content: center;
-    width: 50%;
-    margin-top: 1.5rem;
+    text-align: center;
+    width: 100%;
     color: #9a9a9a;
     font-size: .9rem;
+}
+.credit:first-of-type {
+    margin-top: 1.5rem;
+}
+.credit:last-of-type {
+    margin-top: .5rem;
 }
 
 /* Colors */
@@ -207,20 +213,20 @@ button:active {
     background-image: linear-gradient(180deg, hsl(180, 26%, 14%), hsl(185, 26%, 9%));
 }
 .set-1 {
-    background-image: linear-gradient(180deg, hsl(349, 73%, 14%), hsl(347, 77%, 10%));
+    background-image: linear-gradient(180deg, hsl(349, 73%, 16%), hsl(347, 77%, 12%));
 }
 .set-2 {
     background-image: linear-gradient(180deg, hsl(225, 63%, 15%), hsl(237, 63%, 9%));
 }
 .set-3 {
-    background-image: linear-gradient(180deg, hsl(24, 100%, 13%),  hsl(23, 100%, 9%));
+    background-image: linear-gradient(180deg, hsl(24, 100%, 14%),  hsl(23, 100%, 10%));
 }
 .set-4 {
     background-image: linear-gradient(180deg, hsl(300, 51%, 14%), hsl(300, 51%, 9%));
 }
 
 .set-5 {
-    background-image: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, .1) 50%, transparent 100%),
+    background-image: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, .21) 70%, transparent 100%),
                       radial-gradient(hsl(340, 100%, 69%) 0%, hsl(268, 72%, 69%) 45%, hsl(172, 98%, 69%) 130%);
     background-repeat: no-repeat, no-repeat;
     background-position: 0 -32rem, 0 0;
@@ -331,7 +337,7 @@ button:active {
     }
 
     .card {
-        height: 30rem;
+        height: 28rem;
     }
 
     .card-front .hanzi {
@@ -376,6 +382,12 @@ button:active {
     }
 
     .credit {
+        font-size: .7rem;
+    }
+    .credit:first-of-type {
         margin-top: 1rem;
+    }
+    .credit:last-of-type {
+        margin-top: .2rem;
     }
 }

@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 
 import { FlashcardsComponent } from './flashcards/flashcards.component';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,5 +13,12 @@ import { FlashcardsComponent } from './flashcards/flashcards.component';
 })
 
 export class AppComponent {
-  title = 'Hanzi Flashcards';
+  /** App title */
+  title:string = "Hanzi Flashcards";
+
+
+  /**
+   * Constructor
+   */
+  constructor() {}
 }

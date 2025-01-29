@@ -102,7 +102,7 @@ export class Flashcards {
     // Select the first N cards
     this.index = this.firstIndex > -1 ? ((this.firstIndex + this.numberOfCards) % this.cards.length) : 0;
     this.firstIndex = this.index;
-    this.backColor = (this.backColor == NUMBER_OF_COLOR_SETS - 1) ? this.backColor : ((this.backColor + 1) % NUMBER_OF_COLOR_SETS);
+    this.backColor = (this.backColor == NUMBER_OF_COLOR_SETS - 1) ? this.backColor : this.backColor + 1;
     this.finished = false;
     this.infoIsShown = false;
     this.replace = true;
@@ -294,6 +294,33 @@ export class Flashcards {
     }
 
     this.cards = shuffledArray;
+  }
+
+  /**
+   * Returns the text to display on the new set button
+   * @returns string
+   */
+  newSetButtonText():string {
+    if (this.backColor == NUMBER_OF_COLOR_SETS - 2) {
+      return "_Łạṧț·ʂɛẗ";
+    }
+    if (this.backColor == NUMBER_OF_COLOR_SETS - 1) {
+      return "₦ҿŵ‾ṧḝ†";
+    }
+
+    return "New set";
+  }
+
+  /**
+   * Returns the text to display on the next card button
+   * @returns string
+   */
+  nextCardButtonText():string {
+    if (this.backColor == NUMBER_OF_COLOR_SETS - 1) {
+      return "Иểϰŧ ҫἁɼɖ…";
+    }
+
+    return "Next card";
   }
 
   /**

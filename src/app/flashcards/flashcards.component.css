@@ -213,7 +213,7 @@ button:active {
     background-image: linear-gradient(180deg, hsl(225, 63%, 15%), hsl(237, 63%, 9%));
 }
 .set-3 {
-    background-image: linear-gradient(180deg, hsl(24, 35%, 15%),  hsl(23, 37%, 10%));
+    background-image: linear-gradient(180deg, hsl(24, 100%, 13%),  hsl(23, 100%, 9%));
 }
 .set-4 {
     background-image: linear-gradient(180deg, hsl(300, 51%, 14%), hsl(300, 51%, 9%));

@@ -48,13 +48,13 @@
                 class="new"
                 [disabled]="!flashcards.isFinished()"
                 (click)="flashcards.init()">
-            New set
+            {{flashcards.newSetButtonText()}}
         </button>
 
         <button id="next"
                 class="next"
                 (click)="flashcards.nextCard()">
-            Next card
+                {{flashcards.nextCardButtonText()}}
         </button>
 
         <span [class]="'counter' + (flashcards.isReplacing() ? ' bump' : '')">

@@ -26,6 +26,8 @@ export class Sounds {
     // Load the sounds
     this.swooshSound.src = SWOOSH_SOUND_PATH;
     this.flipSound.src = FLIP_SOUND_PATH;
+    this.swooshSound.volume = 0.2;
+    this.flipSound.volume = 0.2;
     this.swooshSound.load();
     this.flipSound.load();
 

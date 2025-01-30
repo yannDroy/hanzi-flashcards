@@ -23,7 +23,7 @@
     align-items: center;
     position: relative;
     width: 100%;
-    height: 34rem;
+    height: 32rem;
     border-radius: 12px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
     transform-style: preserve-3d;
@@ -64,7 +64,7 @@
 .card-back .hanzi {
     height: 14.5rem;
     align-items: center;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     font-size: 12rem;
     text-shadow: 3px 3px 6px #686868;
 }
@@ -72,6 +72,7 @@
 .pinyin {
     display: flex;
     justify-content: center;
+    align-items: center;
     color: #202020;
     text-shadow: 1px 1px 1px #606060;
     font-size: 2.75rem;
@@ -82,7 +83,7 @@
 .english {
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
+    margin-top: .8rem;
     padding: 0 1.5rem 0 1.5rem;
     color: #353535;
     font-size: 1.25rem;
@@ -110,7 +111,7 @@
 
 /* Buttons */
 
-.buttons-container {
+.buttons-container, .more-container {
     display: flex;
     justify-content: center;
     width: 50%;
@@ -147,6 +148,10 @@ button:active {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2), 0 1px 2px 0 rgba(0, 0, 0, .19);
 }
 
+.more {
+    width: 100%;
+}
+
 @media (hover: hover) { /* Needed to fix hover on mobile */
     button:hover {
         opacity: .8;
@@ -171,19 +176,21 @@ button:active {
 
 /* Credit */
 
-.credit {
+.credits-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
-    width: 100%;
+    margin-top: 1.5rem;
+    width: 50%;
     color: #9a9a9a;
     font-size: .9rem;
 }
-.credit:first-of-type {
-    margin-top: 1.5rem;
+
+.credit {
+    text-align: center;
 }
 .credit:last-of-type {
-    margin-top: .5rem;
+    margin-top: .4rem;
 }
 
 /* Colors */
@@ -330,32 +337,33 @@ button:active {
 
 /* Smaller screens */
 
-@media (max-width: 900px) {
+@media (max-width: 850px) {
     .card-container {
         width: 100%;
         margin-top: 0;
     }
 
     .card {
-        height: 28rem;
+        height: 23.5rem;
     }
 
     .card-front .hanzi {
-        font-size: 12rem;
+        font-size: 11.5rem;
     }
 
     .card-back .hanzi {
         height: 11rem;
-        margin-top: 3rem;
-        font-size: 9rem;
+        margin-top: 1.5rem;
+        font-size: 8.5rem;
     }
 
     .pinyin {
-        margin-top: 2rem;
+        margin-top: .3rem;
         font-size: 1.8rem;
     }
 
     .english {
+        margin-top: .65rem;
         font-size: 1.1rem;
     }
 
@@ -365,7 +373,7 @@ button:active {
         font-size: .9rem;
     }
 
-    .buttons-container {
+    .buttons-container, .more-container {
         width: 100%;
         margin-top: 1.5rem;
         height: 3rem;
@@ -381,13 +389,14 @@ button:active {
         font-size: 1rem;
     }
 
+    .credits-container {
+        width: 100%;
+        margin-top: 1rem;
+    }
     .credit {
         font-size: .7rem;
     }
-    .credit:first-of-type {
-        margin-top: 1rem;
-    }
     .credit:last-of-type {
-        margin-top: .2rem;
+        margin-top: .25rem;
     }
 }

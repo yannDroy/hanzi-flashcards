@@ -10,9 +10,9 @@
                              + (flipped ? ' flip'    : '')"
              (click)="tapOnCard($event)">
 
-             @let card = cards[sets[setIndex][cardIndex]];
+             @let card = getCurrentCard();
 
-            <div [class]="'card-front' + ' set-' + setIndex">
+            <div [class]="'card-front' + ' set-' + (setIndex > 5 ? 5 : setIndex)">
                 <span id="hanzi-front"
                       class="hanzi">
                     {{card.hanzi}}
@@ -58,12 +58,23 @@
         </button>
 
         <span [class]="'counter' + (animations.replace ? ' bump' : '')">
-            {{cardIndex + 1}}/{{getNumberOfCards()}}
+            {{getCurrentCardIndexAsString()}}/{{getNumberOfCardsInSetAsString()}}
         </span>
+    </section>
+    <section *ngIf="finishedAll" class="more-container">
+        <button id="more"
+                class="more"
+                [disabled]="noMoreSets() || !finishedSet"
+                (click)="moreCards()">
+            {{moreButtonText()}}
+        </button>
     </section>
 
     <!-- Credits -->
-    <span class="credit">Learn Mandarin characters with 6 new card sets every day.</span>
-    <span class="credit">Tap the card to reveal the information.</span>
-    <span class="credit">{{getDate()}} - Made by 卓彦</span>
+    <section class="credits-container">
+        <span class="credit">Learn Mandarin characters with 6 new card sets every day.</span>
+        <span class="credit">Tap the card to reveal the information.</span>
+        <span class="credit">{{getDate()}} - Made by 卓彦</span>
+    </section>
+
 </div>

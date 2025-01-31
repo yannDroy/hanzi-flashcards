@@ -66,7 +66,7 @@ export class FlashcardsComponent {
     console.debug("--- FlashcardsComponent constructor: mobile = " + this.mobile);
 
     this.animations = new Animations(this.mobile);
-    this.sounds = this.mobile ? undefined : new Sounds(this.mobile);
+    this.sounds = this.mobile ? undefined : new Sounds(); // No sounds on mobile
 
     // Loop through each item in the .json file
     for (let i:number = 0; i < itemsFile.items.length; i++) {
@@ -79,6 +79,7 @@ export class FlashcardsComponent {
         )
       );
     }
+    // Push at least one card otherwise it crashes
     if (this.cards.length == 0) {
       this.cards.push(new Card("彦", "yàn", "", ""));
     }
@@ -312,6 +313,14 @@ export class FlashcardsComponent {
    */
   noMoreSets():boolean {
     return this.setIndex == this.getNumberOfPossibleSets() - 1;
+  }
+
+  /**
+   * Returns true if the user can continue playing with extra sets
+   * @returns boolean
+   */
+  canPlayExtra():boolean {
+    return !this.noMoreSets() && this.finishedSet;
   }
 
   /**

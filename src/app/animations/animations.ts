@@ -1,5 +1,3 @@
-import { Component, Input } from "@angular/core";
-
 /** Animation duration constants */
 const DURATION_FLIP_ANIMATION = 800;
 const DURATION_REPLACE_ANIMATION = 200;

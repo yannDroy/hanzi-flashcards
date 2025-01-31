@@ -1,5 +1,3 @@
-import { Component, Input } from "@angular/core";
-
 /** File paths */
 const SWOOSH_SOUND_PATH = "../../assets/sounds/swoosh.mp3";
 const FLIP_SOUND_PATH = "../../assets/sounds/flip.mp3";
@@ -22,12 +20,12 @@ export class Sounds {
   /**
    * Constructor
    */
-  constructor(mobile:boolean) {
+  constructor() {
     // Load the sounds
     this.swooshSound.src = SWOOSH_SOUND_PATH;
     this.flipSound.src = FLIP_SOUND_PATH;
-    this.swooshSound.volume = 0.2;
-    this.flipSound.volume = 0.2;
+    this.swooshSound.volume = 0.15;
+    this.flipSound.volume = 0.15;
     this.swooshSound.load();
     this.flipSound.load();
 

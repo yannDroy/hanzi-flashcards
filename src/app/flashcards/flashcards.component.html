@@ -7,6 +7,7 @@
 
         <div id="card"
              [class]="'card' + (animations.replace ? ' replace' : '')
+                             + (animations.replaceLastSet ? ' replace-last' : '')
                              + (flipped ? ' flip' : '')"
              (click)="tapOnCard($event)">
 
@@ -61,12 +62,13 @@
             {{getCurrentCardIndexAsString()}}/{{getNumberOfCardsInSetAsString()}}
         </span>
     </section>
-    <section *ngIf="finishedAll" class="more-container">
+    <section *ngIf="finishedAll"
+             class="buttons-container">
         <button id="more"
                 class="more"
                 [disabled]="!canPlayExtra()"
                 (click)="moreCards()">
-            {{moreButtonText()}}
+            ,ǤɨƲӭ_:₥€  ଲʘґ∉· ¢ἁɼƌʂ!…
         </button>
     </section>
 

@@ -4,6 +4,7 @@ import { isDevMode } from "@angular/core";
 /** Animation duration constants */
 const DURATION_FLIP_ANIMATION = 800;
 const DURATION_REPLACE_ANIMATION = 200;
+const DURATION_LAST_REPLACE_ANIMATION = 1400;
 const DURATION_ENTER_TILT_ANIMATION = 100;
 const DURATION_LEAVE_TILT_ANIMATION = 200;
 
@@ -20,6 +21,9 @@ const REDUCE_TILT = 3200;
 export class Animations {
   /** Boolean that indicates if the new card is replacing the old */
   replace:boolean = false;
+
+  /** Boolean that indicates if the first card of the last set is replacing the old */
+  replaceLastSet:boolean = false;
 
   /** Boolean that indicates if the card is being flipped (information being displayed) */
   flip:boolean = false;
@@ -56,12 +60,36 @@ export class Animations {
   /**
    * Replace the current card with an animation
    */
-  replaceAnimation():void {
+  replaceAnimation(lastSet:boolean = false):void {
+    if (lastSet) {
+      this.lastSetReplaceAnimation();
+    } else {
+      this.normalSetreplaceAnimation();
+    }
+  }
+
+  /**
+   * Replace the current card with an animation (for any set except the last)
+   */
+  normalSetreplaceAnimation():void {
     this.replace = true;
 
     setTimeout(() => {
       this.replace = false;
     }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
+
+    document.getElementById('description')?.scrollTo(0, 0);
+  }
+
+  /**
+   * Replace the current card with an animation (for the last set)
+   */
+  lastSetReplaceAnimation():void {
+    this.replaceLastSet = true;
+
+    setTimeout(() => {
+      this.replaceLastSet = false;
+    }, DURATION_LAST_REPLACE_ANIMATION); // needs to match the duration in .css
 
     document.getElementById('description')?.scrollTo(0, 0);
   }
@@ -150,7 +178,7 @@ export class Animations {
    * @returns boolean
    */
   isAnimationOngoing():boolean {
-    if (this.flip || this.replace) {
+    if (this.flip || this.replace || this.replaceLastSet) {
       isDevMode() && console.debug("--- isAnimationOngoing: animation ongoing");
       return true;
     }

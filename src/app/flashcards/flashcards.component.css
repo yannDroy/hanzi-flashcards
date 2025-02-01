@@ -111,7 +111,7 @@
 
 /* Buttons */
 
-.buttons-container, .more-container {
+.buttons-container {
     display: flex;
     justify-content: center;
     width: 50%;
@@ -266,13 +266,27 @@ button:active {
     animation: replace-from-right .2s forwards;
 }
 
+.replace-last {
+    animation: replace-from-right-last-set 1.4s forwards;
+}
+
 .bump {
     animation: bump-counter .2s ease-in-out forwards;
 }
 
 @keyframes replace-from-right {
-    from { transform: scale(1.2) translate(16rem, -3rem) rotate(2deg); }
+    from { transform: scale(1) translate(16rem, -3rem) rotate(3deg); }
     to { transform: scale(1) translate(0, 0) rotate(0deg); }
+}
+
+@keyframes replace-from-right-last-set {
+    0% { transform: scale(1) translate(16rem, -3rem) rotate(3deg); }
+    20% { transform: scale(1) translate(0, 0) rotate(0deg); }
+    40% { transform: scale(1.2) translate(0, 0) rotate(0deg); }
+    45% { transform: scale(1.2) translate(0, 0) rotate(-3deg); }
+    50% { transform: scale(1.2) translate(0, 0) rotate(3deg); }
+    55% { transform: scale(1.2) translate(0, 0) rotate(0deg); }
+    100% { transform: scale(1) translate(0, 0) rotate(0deg); }
 }
 
 @keyframes flip-and-zoom {
@@ -373,7 +387,7 @@ button:active {
         font-size: .9rem;
     }
 
-    .buttons-container, .more-container {
+    .buttons-container {
         width: 100%;
         margin-top: 1.5rem;
         height: 3rem;

@@ -86,9 +86,6 @@ export class FlashcardsComponent {
     }
 
     this.shuffleCards();
-    this.shuffleCards();
-    this.shuffleCards();
-
     this.init(true);
   }
 
@@ -117,7 +114,7 @@ export class FlashcardsComponent {
 
     isDevMode() && this.logAttributes("init");
 
-    this.animations.replaceAnimation();
+    this.animations.replaceAnimation(this.isLastSet() && this.getNumberOfSets() == FlashcardsComponent.NUMBER_OF_SETS);
     !firstInit && this.sounds?.playSwooshSound();
   }
 
@@ -273,13 +270,6 @@ export class FlashcardsComponent {
     }
 
     return "Next card";
-  }
-
-  /**
-   * Returns the text to display on the more cards button
-   */
-  moreButtonText():string {
-    return ".ǤɨƲӭ_⹝₥€  ଲʘґ∉· ¢ἁɼƌʂ!…";
   }
 
   /**

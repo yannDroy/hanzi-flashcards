@@ -1,3 +1,6 @@
+import { isDevMode } from "@angular/core";
+
+
 /** Animation duration constants */
 const DURATION_FLIP_ANIMATION = 800;
 const DURATION_REPLACE_ANIMATION = 200;
@@ -148,7 +151,7 @@ export class Animations {
    */
   isAnimationOngoing():boolean {
     if (this.flip || this.replace) {
-      console.debug("--- isAnimationOngoing: animation ongoing");
+      isDevMode() && console.debug("--- isAnimationOngoing: animation ongoing");
       return true;
     }
 

@@ -216,43 +216,43 @@ button:active {
     color: #0a67b3;
 }
 
-.set-0 {
-    background-image: linear-gradient(180deg, hsl(180, 26%, 14%), hsl(185, 26%, 9%));
-}
 .set-1 {
-    background-image: linear-gradient(180deg, hsl(349, 73%, 16%), hsl(347, 77%, 12%));
+    background-image: linear-gradient(180deg, hsl(0, 0%, 17%),  hsl(0, 0%, 9%));
 }
 .set-2 {
-    background-image: linear-gradient(180deg, hsl(225, 63%, 15%), hsl(237, 63%, 9%));
+    background-image: linear-gradient(180deg, hsl(180, 26%, 14%), hsl(185, 26%, 9%));
 }
 .set-3 {
-    background-image: linear-gradient(180deg, hsl(24, 100%, 14%),  hsl(23, 100%, 10%));
+    background-image: linear-gradient(180deg, hsl(225, 63%, 15%), hsl(237, 63%, 9%));
 }
 .set-4 {
+    background-image: linear-gradient(180deg, hsl(349, 73%, 16%), hsl(347, 77%, 12%));
+}
+.set-5 {
     background-image: linear-gradient(180deg, hsl(300, 51%, 14%), hsl(300, 51%, 9%));
 }
 
-.set-5 {
+.last-set {
     background-image: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, .21) 70%, transparent 100%),
                       radial-gradient(hsl(340, 100%, 69%) 0%, hsl(268, 72%, 69%) 45%, hsl(172, 98%, 69%) 130%);
     background-repeat: no-repeat, no-repeat;
     background-position: 0 -32rem, 0 0;
     animation: shine 1.4s ease-in-out infinite;
 }
-.set-5 .hanzi {
+.last-set .hanzi {
     color: #ffcc24;
     animation: glowing-text-gold 2s ease-in-out infinite alternate;
 }
-.set-5 + .card-back {
+.last-set + .card-back {
     background-image: radial-gradient(hsl(298, 57%, 92%) 0%, hsl(263, 73%, 90%) 45%, hsl(172, 98%, 89%) 130%);
 }
-.set-5 + .card-back .pinyin {
+.last-set + .card-back .pinyin {
     color: #043d86;
 }
-.set-5 + .card-back .english {
+.last-set + .card-back .english {
     color: #01214b;
 }
-.set-5 + .card-back .description {
+.last-set + .card-back .description {
     color: #01214b;
 }
 

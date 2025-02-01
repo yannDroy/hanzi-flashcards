@@ -7,12 +7,12 @@
 
         <div id="card"
              [class]="'card' + (animations.replace ? ' replace' : '')
-                             + (flipped ? ' flip'    : '')"
+                             + (flipped ? ' flip' : '')"
              (click)="tapOnCard($event)">
 
              @let card = getCurrentCard();
 
-            <div [class]="'card-front' + ' set-' + (setIndex > 5 ? 5 : setIndex)">
+            <div [class]="'card-front ' + getSetClass()">
                 <span id="hanzi-front"
                       class="hanzi">
                     {{card.hanzi}}
@@ -72,7 +72,9 @@
 
     <!-- Credits -->
     <section class="credits-container">
-        <span class="credit">Learn Mandarin characters with {{getNumberOfSets()}} new card sets every day.</span>
+        @let plural = getNumberOfSets() > 1;
+
+        <span class="credit">Learn Mandarin characters with {{getNumberOfSets()}} new card set{{plural ? 's' : ''}} every day.</span>
         <span class="credit">Tap the card to reveal the information.</span>
         <span class="credit">{{getDate()}} - Made by 卓彦</span>
     </section>

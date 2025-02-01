@@ -1,3 +1,6 @@
+import { isDevMode } from '@angular/core';
+
+
 /** File paths */
 const SWOOSH_SOUND_PATH = "../../assets/sounds/swoosh.mp3";
 const FLIP_SOUND_PATH = "../../assets/sounds/flip.mp3";
@@ -29,7 +32,7 @@ export class Sounds {
     this.swooshSound.load();
     this.flipSound.load();
 
-    console.debug("--- Sounds constructor: sounds are loaded");
+    isDevMode() && console.debug("--- Sounds constructor: sounds are loaded");
   }
 
   /**

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'
+import { isDevMode } from '@angular/core';
 
 import { Card } from './card';
 import { Animations } from '../animations/animations';
@@ -11,7 +12,7 @@ import itemsFile from '../../assets/items.json';
 
 /** Enumeration of data types for each items in the .json file */
 enum Type {
-  Hanzi, Pinyin, Engligh, Description, None
+  Hanzi, Pinyin, Engligh, Description
 }
 
 
@@ -31,13 +32,13 @@ export class FlashcardsComponent {
   static NUMBER_OF_SETS:number = 6;
 
   /** Animations handler */
-  animations!: Animations;
+  animations:Animations;
 
   /** Sounds handler */
   sounds:Sounds|undefined;
 
   /** Boolean indicating the user is on mobile */
-  mobile:boolean;
+  mobile:boolean = false;
 
   /** List of all the cards */
   cards:Array<Card> = [];
@@ -114,7 +115,7 @@ export class FlashcardsComponent {
     this.finishedAll = false;
     this.flipped = false;
 
-    this.logAttributes("init");
+    isDevMode() && this.logAttributes("init");
 
     this.animations.replaceAnimation();
     !firstInit && this.sounds?.playSwooshSound();
@@ -142,7 +143,7 @@ export class FlashcardsComponent {
     this.finishedAll = this.finishedAll || (this.finishedSet && this.isLastSet() && this.getNumberOfPossibleSets() > FlashcardsComponent.NUMBER_OF_SETS);
     this.flipped = false;
 
-    this.logAttributes("nextCard");
+    isDevMode() && this.logAttributes("nextCard");
 
     this.animations.replaceAnimation();
     this.sounds?.playSwooshSound();
@@ -162,15 +163,13 @@ export class FlashcardsComponent {
       return;
     }
 
-    const numberOfPossibleSets = Math.ceil(this.cards.length / FlashcardsComponent.NUMBER_OF_CARDS);
-
-    this.setIndex = (this.setIndex + 1) % numberOfPossibleSets;
+    this.setIndex = (this.setIndex + 1) % this.getNumberOfPossibleSets();
     this.cardIndex = 0;
     this.finishedSet = false || (this.getNumberOfCardsInSet() == 1);
     this.finishedAll = true;
     this.flipped = false;
 
-    this.logAttributes("moreCards");
+    isDevMode() && this.logAttributes("moreCards");
 
     this.animations.replaceAnimation();
     this.sounds?.playSwooshSound();
@@ -292,7 +291,7 @@ export class FlashcardsComponent {
   }
 
   /**
-   * Returns the number of total sets (max being NUMBER_OF_CARDS)
+   * Returns the number of total sets (max being NUMBER_OF_SETS)
    * @returns number
    */
   getNumberOfSets():number {
@@ -366,6 +365,16 @@ export class FlashcardsComponent {
   }
 
   /**
+   * Returns the CSS class for a given set
+   * set-n for 1 to NUMBER_OF_SETS then .last-set for the last one and above
+   * If only one set, return set-1 and not the last one
+   * @returns string
+   */
+  getSetClass():string {
+    return this.setIndex >= this.getNumberOfSets() - 1 && this.getNumberOfSets() > 1 ? 'last-set' : ('set-' + (this.setIndex + 1));
+  }
+
+  /**
    * Returns the current card
    * We count the number or cards times the number of completed sets + the current index in the set
    * @returns Card
@@ -408,7 +417,6 @@ export class FlashcardsComponent {
    * @param prefix string
    */
   logAttributes(prefix:string = ""):void {
-    console.debug("--- App Attributes ---");
     console.debug("--- [" + prefix + "] sets        = " + this.getNumberOfSets());
     console.debug("--- [" + prefix + "] max sets    = " + this.getNumberOfPossibleSets());
     console.debug("--- [" + prefix + "] setIndex    = " + this.setIndex);
@@ -417,6 +425,6 @@ export class FlashcardsComponent {
     console.debug("--- [" + prefix + "] set size    = " + this.getNumberOfCardsInSet());
     console.debug("--- [" + prefix + "] all cards   = " + this.cards.length);
     console.debug("--- [" + prefix + "] finishedSet = " + this.finishedSet);
-    console.debug("--- [" + prefix + "] finishedAll = " + this.finishedAll);
+    console.debug("--- [" + prefix + "] finishedAll = " + this.finishedAll + "\n\n");
   }
 }

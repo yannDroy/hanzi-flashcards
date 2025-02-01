@@ -8,11 +8,8 @@ const DURATION_LAST_REPLACE_ANIMATION = 1400;
 const DURATION_ENTER_TILT_ANIMATION = 100;
 const DURATION_LEAVE_TILT_ANIMATION = 200;
 
-/** Mouse over interval */
-// const INTERVAL_MOUSE_OVER = 10;
-
 /** Reduce the tilt of the card when hovering */
-const REDUCE_TILT = 3200;
+const REDUCE_TILT = 3800;
 
 
 /**
@@ -78,7 +75,7 @@ export class Animations {
       this.replace = false;
     }, DURATION_REPLACE_ANIMATION); // needs to match the duration in .css
 
-    document.getElementById('description')?.scrollTo(0, 0);
+    document.getElementById("description")?.scrollTo(0, 0);
   }
 
   /**
@@ -91,7 +88,7 @@ export class Animations {
       this.replaceLastSet = false;
     }, DURATION_LAST_REPLACE_ANIMATION); // needs to match the duration in .css
 
-    document.getElementById('description')?.scrollTo(0, 0);
+    document.getElementById("description")?.scrollTo(0, 0);
   }
 
   /**
@@ -114,28 +111,31 @@ export class Animations {
    */
   mouseOver(event:MouseEvent, flipped:boolean):void {
     // Only process if the card has not been flipped and on desktop
-    // const now = Date.now();
-    if (flipped || this.mobile) {
+    if (flipped || this.mobile || !event) {
       return;
     }
-    // this.lastHover = now;
 
-    // Mouse coordinates
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-    // Center of the screen coordinates
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
+    const cardContainer:HTMLElement|null = document.getElementById("card-container");
+    if (!cardContainer) {
+      return;
+    }
+
+    // Coordinates of mouse click
+    const mouseX:number = event.clientX;
+    const mouseY:number = event.clientY;
+    // Coordinates of the center of the card
+    const centerX:number = cardContainer.offsetLeft + (cardContainer.offsetWidth  / 2);
+    const centerY:number = cardContainer.offsetTop  + (cardContainer.offsetHeight / 2);
     // Delta
-    const deltaX = mouseX - centerX;
-    const deltaY = mouseY - centerY;
+    const deltaX:number = mouseX - centerX;
+    const deltaY:number = mouseY - centerY;
 
     let card = document.getElementById("card");
     if (card) {
       // Normalize the delta values to get the direction vector
       const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY) / REDUCE_TILT;
-      const normX = deltaX / length;
-      const normY = deltaY / length;
+      const normX:number = deltaX / length;
+      const normY:number = deltaY / length;
 
       card.style.transform = `rotate3d(${-normY}, ${normX}, 0, ${length}rad)`;
 

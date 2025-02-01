@@ -207,7 +207,7 @@ export class FlashcardsComponent {
    * @returns function: () => number
    */
   seed(date:Date = new Date()): () => number {
-    let seed = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+    let seed:number = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
     return function() {
       seed = (seed * 16807) % 2147483647;
       return seed / 2147483647;
@@ -220,7 +220,7 @@ export class FlashcardsComponent {
   shuffleCards():void {
     const random = this.seed();
     const shuffledArray:Array<Card> = [];
-    let length = this.cards.length;
+    let length:number = this.cards.length;
 
     while (length) {
       const i:number = Math.floor(random() * length--);

@@ -1,9 +1,10 @@
 <div class="content">
     <!-- Card -->
-    <section [class]="'card-container'"
-             (mouseenter)="animations.mouseEnter($event, animations.flip)"
-             (mouseleave)="animations.mouseLeave(animations.flip)"
-             (mousemove)="animations.mouseOver($event, animations.flip)">
+    <section id="card-container"
+             [class]="'card-container'"
+             (mouseenter)="animations.mouseEnter($event, flipped)"
+             (mouseleave)="animations.mouseLeave(flipped)"
+             (mousemove)="animations.mouseOver($event, flipped)">
 
         <div id="card"
              [class]="'card' + (animations.replace ? ' replace' : '')

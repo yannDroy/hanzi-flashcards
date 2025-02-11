@@ -90,7 +90,7 @@ export class FlashcardsComponent {
   }
 
   /**
-   * Init a new set
+   * Inits a new set
    * - the set index is set to 0:
    *   - the first time
    *   - OR if init is done after all the sets are seen (start over)
@@ -100,8 +100,9 @@ export class FlashcardsComponent {
    * - the set is not finished unless there is only one card in it
    * - the game completion is reset
    * - the current card is not flipped
+   * @param firstInit boolean indicating the first init of the whole game
    */
-  init(firstInit:boolean):void {
+  init(firstInit:boolean = false):void {
     if (this.animations.isAnimationOngoing()) {
       return;
     }
@@ -119,7 +120,7 @@ export class FlashcardsComponent {
   }
 
   /**
-   * Replace the current card with the next one from the set
+   * Replaces the current card with the next one from the set
    * - current card index is incremented
    *   - loops back to 0 if reached the end
    * - the set is finished if:
@@ -147,7 +148,7 @@ export class FlashcardsComponent {
   }
 
   /**
-   * Init a new set after all the sets are done
+   * Inits a new set after all the sets are done
    * - the set index is incremented
    *   - normally it will not loop back as the button is disabled if there are no more sets at all
    * - card index is 0 (first card of the new set)
@@ -173,7 +174,7 @@ export class FlashcardsComponent {
   }
 
   /**
-   * Flip the current card
+   * Flips the current card
    */
   flipCard():void {
     if (this.animations.isAnimationOngoing()) {
@@ -182,13 +183,14 @@ export class FlashcardsComponent {
 
     this.flipped = true;
 
-    this.animations.mouseLeave(this.flipped);
+    this.animations.mouseLeave();
     this.animations.flipAnimation();
     this.sounds?.playFlipSound();
   }
 
   /**
-   * Handle 'tap on card' action (either next card or flip depending on its state)
+   * Handles 'tap on card' action (either next card or flip depending on its state)
+   * @param event MouseEvent
    */
   tapOnCard(event:MouseEvent):void {
     if (this.flipped) {
@@ -206,7 +208,7 @@ export class FlashcardsComponent {
    * @param date Date
    * @returns function: () => number
    */
-  seed(date:Date = new Date()): () => number {
+  seed(date:Date = new Date()):() => number {
     let seed:number = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
     return function() {
       seed = (seed * 16807) % 2147483647;
@@ -384,6 +386,7 @@ export class FlashcardsComponent {
   /**
    * Returns an obfuscated version of a number
    * @param n number
+   * @returns string
    */
   getObfuscatedNumber(n:number):string {
     switch (n) {
@@ -403,7 +406,7 @@ export class FlashcardsComponent {
   }
 
   /**
-   * Log the class attributes with a prefix
+   * Logs the class attributes with a prefix
    * @param prefix string
    */
   logAttributes(prefix:string = ""):void {
@@ -415,6 +418,7 @@ export class FlashcardsComponent {
     console.debug("--- [" + prefix + "] set size    = " + this.getNumberOfCardsInSet());
     console.debug("--- [" + prefix + "] all cards   = " + this.cards.length);
     console.debug("--- [" + prefix + "] finishedSet = " + this.finishedSet);
-    console.debug("--- [" + prefix + "] finishedAll = " + this.finishedAll + "\n\n");
+    console.debug("--- [" + prefix + "] finishedAll = " + this.finishedAll);
+    console.debug("\n");
   }
 }

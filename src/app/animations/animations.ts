@@ -40,7 +40,7 @@ export class Animations {
   }
 
   /**
-   * Flip the current card with an animation
+   * Flips the current card with an animation
    */
   flipAnimation():void {
     this.flip = true;
@@ -55,7 +55,9 @@ export class Animations {
   }
 
   /**
-   * Replace the current card with an animation
+   * Replaces the current card with an animation
+   * The animation is different when the user gets to the last set
+   * @param lastSet boolean
    */
   replaceAnimation(lastSet:boolean = false):void {
     if (lastSet) {
@@ -79,7 +81,7 @@ export class Animations {
   }
 
   /**
-   * Replace the current card with an animation (for the last set)
+   * Replaces the current card with an animation (for the last set)
    */
   lastSetReplaceAnimation():void {
     this.replaceLastSet = true;
@@ -93,8 +95,11 @@ export class Animations {
 
   /**
    * Registers that the mouse has started hovering on the card
+   * Returns instantly if the card is flipped or if on mobile
+   * @param event MouseEvent
+   * @param flipped boolean
    */
-  mouseEnter(event:MouseEvent, flipped:boolean):void {
+  mouseEnter(event:MouseEvent, flipped:boolean = false):void {
     // Only process if the card has not been flipped and on desktop
     if (flipped || this.mobile) {
       return;
@@ -108,8 +113,11 @@ export class Animations {
 
   /**
    * Handle the mouse movement over the card and tilt it
+   * Returns instantly if the card is flipped or if on mobile
+   * @param event MouseEvent
+   * @param flipped boolean
    */
-  mouseOver(event:MouseEvent, flipped:boolean):void {
+  mouseOver(event:MouseEvent, flipped:boolean = false):void {
     // Only process if the card has not been flipped and on desktop
     if (flipped || this.mobile || !event) {
       return;
@@ -151,8 +159,10 @@ export class Animations {
 
   /**
    * Registers that the mouse has stopped hovering on the card
+   * Returns instantly if the card is flipped or if on mobile
+   * @param flipped boolean
    */
-  mouseLeave(flipped:boolean):void {
+  mouseLeave(flipped:boolean = false):void {
     // Only process if the card has not been flipped and on desktop
     if (flipped || this.mobile) {
       return;
